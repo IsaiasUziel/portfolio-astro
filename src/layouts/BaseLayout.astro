@@ -28,6 +28,11 @@ const englishPath = getTranslatedPath(currentPath, locale, "en");
 const spanishHref = new URL(spanishPath, Astro.site);
 const englishHref = new URL(englishPath, Astro.site);
 const ogImage = new URL("/og/default-og.svg", Astro.site);
+const socialDescription = description;
+const socialSiteName = 'iCordero';
+const socialImageAlt = locale === 'es'
+  ? 'Vista previa del portfolio de Isaías Cordero'
+  : 'Preview of Isaías Cordero portfolio';
 const isHomePage = ["/en", "/"].includes(currentPath);
 ---
 
@@ -50,8 +55,15 @@ const isHomePage = ["/en", "/"].includes(currentPath);
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={socialSiteName} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={socialImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={socialDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
     <ClientRouter />
   </head>
   <body class:list={[hasTabs && "pb-20 lg:pb-0"]}>

@@ -12,6 +12,8 @@ const nextLocale: Locale = locale === 'es' ? 'en' : 'es';
 const translatedPath = getTranslatedPath(currentPath, locale, nextLocale);
 const nextPath = toDefaultLocaleRoot(translatedPath, nextLocale);
 const switchToLabel = locale === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish';
+const englishLinkLabel = locale === 'es' ? 'EN · Cambiar a inglés' : 'EN';
+const spanishLinkLabel = locale === 'en' ? 'ES · Switch to Spanish' : 'ES';
 ---
 
 <div class="flex items-center gap-3 text-sm font-medium">
@@ -22,7 +24,8 @@ const switchToLabel = locale === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish
       <a
         href={nextPath}
         data-language-switcher
-        aria-label={switchToLabel}
+        aria-label={englishLinkLabel}
+        title={switchToLabel}
         class="text-text-muted transition-colors hover:text-text-primary"
       >
         EN
@@ -36,7 +39,8 @@ const switchToLabel = locale === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish
       <a
         href={nextPath}
         data-language-switcher
-        aria-label={switchToLabel}
+        aria-label={spanishLinkLabel}
+        title={switchToLabel}
         class="text-text-muted transition-colors hover:text-text-primary"
       >
         ES
