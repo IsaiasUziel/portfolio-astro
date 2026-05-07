@@ -1,56 +1,52 @@
 # portfolio-astro
 
-Portfolio bilingüe en Astro con Content Collections para perfil, experiencia, proyectos, skills y contacto.
+Bilingual portfolio built with Astro and Content Collections to present profile, experience, projects, skills, testimonials, and contact information.
 
-## Package manager policy
+## Live site
 
-- Primario: **Bun** (lockfile esperado: `bun.lock`).
-- Fallback compatible: npm o pnpm para entornos sin Bun.
+- https://icordero.dev/
 
-### Comandos con Bun (preferido)
+## Quick start
 
-- `bun install`
-- `bun run dev`
-- `bun run check`
-- `bun run lint`
-- `bun run format`
+Preferred package manager: **Bun**.
 
-### Fallback npm
+```bash
+bun install
+bun run dev
+```
 
-- `npm install`
-- `npm run dev`
-- `npm run check`
-- `npm run lint`
-- `npm run format`
+Fallback:
 
-### Fallback pnpm
+```bash
+npm install
+npm run dev
+```
 
-- `pnpm install`
-- `pnpm dev`
-- `pnpm check`
-- `pnpm lint`
-- `pnpm format`
+```bash
+pnpm install
+pnpm dev
+```
 
-## Rutas MVP
+## Available routes
 
-- `/` (home por defecto en español)
-- `/es` y `/en` (home por locale; `/es` se mantiene como alias explícito de español)
-- `/es/resume` y `/en/resume`
-- `/es/projects` y `/en/projects`
+- `/` — default home in Spanish
+- `/es` and `/en` — localized home
+- `/es/resume` and `/en/resume`
+- `/es/projects` and `/en/projects`
 
 ## Scripts
 
-- `dev`: servidor de desarrollo Astro.
-- `build`: build de producción.
-- `preview`: preview local del build.
-- `check`: verificación de tipos/plantillas Astro.
-- `check:content`: validación de contenido y schemas (alias de `astro check`).
-- `test`: pruebas unitarias con Vitest.
-- `test:unit`: pruebas unitarias con Vitest.
-- `test:e2e`: pruebas E2E con Playwright.
-- `quality:release`: gate estático post-build (rutas críticas + presupuesto JS gz por asset).
-- `lint`: lint de TS/Astro/MDX.
-- `format`: formateo con Prettier.
+- `dev` — start Astro dev server
+- `build` — production build
+- `preview` — preview built site locally
+- `check` — Astro/type validation
+- `check:content` — alias for `astro check`
+- `test` — run unit tests with Vitest
+- `test:unit` — run unit tests with Vitest
+- `test:e2e` — run Playwright end-to-end tests
+- `quality:release` — static quality gate for release checks
+- `lint` — lint TS/Astro files
+- `format` — format repository with Prettier
 
 ## Stack
 
@@ -60,3 +56,8 @@ Portfolio bilingüe en Astro con Content Collections para perfil, experiencia, p
 - Content Collections
 - Vitest
 - Playwright
+- Vercel Analytics
+
+## License
+
+MIT
