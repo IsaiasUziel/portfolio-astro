@@ -1,4 +1,4 @@
-# portfolio-v2
+# portfolio-astro
 
 Portfolio bilingüe en Astro con Content Collections para perfil, experiencia, proyectos, skills y contacto.
 
