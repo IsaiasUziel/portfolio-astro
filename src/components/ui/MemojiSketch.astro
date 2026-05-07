@@ -1,0 +1,181 @@
+---
+// Geometric neon sketch — memoji character
+// 13 hair polygon clusters, octagonal glasses, detailed eyes, proper Apple logo
+---
+
+<svg
+  class="memoji-sketch"
+  viewBox="0 0 500 520"
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  aria-hidden="true"
+>
+  <defs>
+    <linearGradient id="mg" x1="0" y1="0" x2="500" y2="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffdb6e" />
+      <stop offset="100%" stop-color="#ffbc5e" />
+    </linearGradient>
+
+    <!-- Double-layer neon: wide outer glow + tight inner glow + sharp line -->
+    <filter id="neon" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="outer" />
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="inner" />
+      <feMerge>
+        <feMergeNode in="outer" />
+        <feMergeNode in="inner" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g
+    stroke="url(#mg)"
+    stroke-width="2.5"
+    fill="none"
+    stroke-linejoin="miter"
+    stroke-linecap="square"
+    filter="url(#neon)"
+  >
+
+    <!-- ══════════════════════════════════════
+         HAIR — 13 overlapping polygon clusters
+         arranged in 3 rows (top → mid → bottom)
+         ══════════════════════════════════════ -->
+
+    <!-- Top row (3) -->
+    <path pathLength="1" class="draw g1"
+      d="M 218 18 L 250 5 L 282 12 L 290 42 L 278 65 L 248 70 L 218 62 L 210 38 Z" />
+    <path pathLength="1" class="draw g1"
+      d="M 145 28 L 172 15 L 200 22 L 208 50 L 195 72 L 168 78 L 145 62 Z" />
+    <path pathLength="1" class="draw g1"
+      d="M 300 28 L 328 15 L 355 22 L 362 50 L 348 72 L 322 78 L 295 62 Z" />
+
+    <!-- Mid row (5) -->
+    <path pathLength="1" class="draw g1"
+      d="M 215 60 L 245 45 L 278 50 L 290 78 L 278 108 L 248 115 L 218 108 L 208 78 Z" />
+    <path pathLength="1" class="draw g1"
+      d="M 152 65 L 178 50 L 212 55 L 222 82 L 210 110 L 182 118 L 155 105 Z" />
+    <path pathLength="1" class="draw g1"
+      d="M 278 65 L 305 50 L 338 55 L 348 82 L 335 110 L 305 118 L 278 105 Z" />
+    <path pathLength="1" class="draw g1"
+      d="M 88 78 L 110 62 L 145 68 L 155 95 L 145 122 L 118 128 L 88 115 Z" />
+    <path pathLength="1" class="draw g1"
+      d="M 352 78 L 375 62 L 408 68 L 418 95 L 405 122 L 378 128 L 352 115 Z" />
+
+    <!-- Bottom row (5 — connects to face sides) -->
+    <path pathLength="1" class="draw g1"
+      d="M 212 118 L 242 105 L 275 110 L 288 138 L 278 165 L 248 172 L 218 165 L 208 140 Z" />
+    <path pathLength="1" class="draw g1"
+      d="M 125 122 L 152 108 L 188 115 L 198 142 L 185 168 L 155 172 L 128 158 Z" />
+    <path pathLength="1" class="draw g1"
+      d="M 302 122 L 330 108 L 362 115 L 375 142 L 362 168 L 332 172 L 305 158 Z" />
+    <path pathLength="1" class="draw g1"
+      d="M 62 135 L 85 120 L 118 128 L 128 155 L 115 178 L 88 182 L 65 168 Z" />
+    <path pathLength="1" class="draw g1"
+      d="M 372 135 L 395 120 L 428 128 L 438 155 L 425 178 L 398 182 L 375 168 Z" />
+
+    <!-- ══════════════════════════════════
+         FACE SIDES — visible above laptop
+         ══════════════════════════════════ -->
+    <path pathLength="1" class="draw g2" d="M 88 182 L 88 322" />
+    <path pathLength="1" class="draw g2" d="M 412 182 L 412 322" />
+
+    <!-- ══════════════
+         EYEBROWS
+         ══════════════ -->
+    <path pathLength="1" class="draw g2" d="M 145 188 L 210 174" />
+    <path pathLength="1" class="draw g2" d="M 290 174 L 355 188" />
+
+    <!-- ══════════════════════════════════════════
+         GLASSES — octagonal (chamfered rectangle)
+         ══════════════════════════════════════════ -->
+
+    <!-- Left frame: x 108-240, y 200-274 -->
+    <path pathLength="1" class="draw g3"
+      d="M 122 200 L 228 200 L 240 212 L 240 262 L 228 274 L 122 274 L 110 262 L 110 212 Z" />
+
+    <!-- Right frame: x 248-380, y 200-274 -->
+    <path pathLength="1" class="draw g3"
+      d="M 260 200 L 366 200 L 378 212 L 378 262 L 366 274 L 260 274 L 248 262 L 248 212 Z" />
+
+    <!-- Bridge -->
+    <path pathLength="1" class="draw g3" d="M 240 237 L 248 237" />
+
+    <!-- Left temple arm -->
+    <path pathLength="1" class="draw g3" d="M 110 237 L 88 237" />
+
+    <!-- Right temple arm -->
+    <path pathLength="1" class="draw g3" d="M 378 237 L 412 237" />
+
+    <!-- ══════════════════════════════════════════════════
+         NOSE — angular geometric shape below glasses
+         ══════════════════════════════════════════════════ -->
+    <path pathLength="1" class="draw g4"
+      d="M 235 282 L 225 308 L 232 318 L 250 322 L 268 318 L 275 308 L 265 282" />
+
+    <!-- ══════════════
+         LAPTOP LID
+         ══════════════ -->
+    <path pathLength="1" class="draw g5"
+      d="M 38 322 L 462 322 L 462 476 L 38 476 Z" />
+
+    <!-- ══════════════════════════════════════════════
+         APPLE LOGO — leaf + body with bite indentation
+         ══════════════════════════════════════════════ -->
+
+    <!-- Leaf / stem -->
+    <path pathLength="1" class="draw g6"
+      d="M 250 366 L 255 352 L 267 346 L 270 358 L 258 365" />
+
+    <!-- Body (14-point polygon, bite on right side) -->
+    <path pathLength="1" class="draw g6"
+      d="M 250 366 L 268 371 L 280 382 L 284 396
+         L 278 402 L 286 414 L 281 426
+         L 266 432 L 250 434
+         L 234 432 L 219 426
+         L 214 414 L 222 402
+         L 216 396 L 220 382 L 232 371 Z" />
+
+    <!-- ══════════════
+         LAPTOP BASE
+         ══════════════ -->
+    <path pathLength="1" class="draw g7"
+      d="M 38 476 L 18 498 L 482 498 L 462 476" />
+
+  </g>
+</svg>
+
+<style>
+  .memoji-sketch {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  @keyframes draw-line {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Sequential draw — hair first (longer), then face → glasses → eyes → laptop → logo → base */
+  .g1 { animation: draw-line 1.5s  ease-out forwards 0.10s; }
+  .g2 { animation: draw-line 0.40s ease-out forwards 1.50s; }
+  .g3 { animation: draw-line 0.60s ease-out forwards 1.80s; }
+  .g4 { animation: draw-line 0.50s ease-out forwards 2.30s; }
+  .g5 { animation: draw-line 0.55s ease-out forwards 2.70s; }
+  .g6 { animation: draw-line 0.55s ease-out forwards 3.10s; }
+  .g7 { animation: draw-line 0.35s ease-out forwards 3.55s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .draw {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

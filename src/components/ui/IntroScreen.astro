@@ -1,0 +1,53 @@
+---
+import MemojiSketch from "./MemojiSketch.astro";
+---
+
+<div
+  id="intro-screen"
+  class="fixed inset-0 z-[999] flex items-center justify-center bg-surface-canvas"
+  aria-hidden="true"
+>
+  <div class="w-44 sm:w-52">
+    <MemojiSketch />
+  </div>
+</div>
+
+<script>
+  // Draw animation ends at: last group delay 3.55s + duration 0.35s = 3.90s
+  // Add buffer before fade → show for 4.3s, fade over 0.5s
+  const SHOW_MS = 4300;
+  const FADE_MS = 500;
+  const KEY = "portfolio-intro-seen";
+
+  function boot() {
+    const el = document.getElementById("intro-screen");
+    if (!el) return;
+
+    if (sessionStorage.getItem(KEY)) {
+      el.style.display = "none";
+      return;
+    }
+
+    el.style.opacity = "1";
+    el.style.pointerEvents = "auto";
+
+    setTimeout(() => {
+      el.style.transition = `opacity ${FADE_MS}ms ease`;
+      el.style.opacity = "0";
+      setTimeout(() => {
+        el.style.display = "none";
+        sessionStorage.setItem(KEY, "1");
+      }, FADE_MS);
+    }, SHOW_MS);
+  }
+
+  // fires on initial load and after every View Transition swap
+  document.addEventListener("astro:page-load", boot);
+</script>
+
+<style>
+  #intro-screen {
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>

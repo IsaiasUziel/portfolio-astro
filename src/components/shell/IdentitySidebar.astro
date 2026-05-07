@@ -1,0 +1,351 @@
+---
+import type { Locale } from "../../lib/i18n";
+
+interface Props {
+  locale: Locale;
+  name: string;
+  headline: string;
+  location?: string;
+  email?: string;
+  linkedin?: string;
+}
+
+const { locale, name, headline, location, email, linkedin } = Astro.props;
+
+const labels = {
+  location: locale === "es" ? "Ubicación" : "Location",
+  email: "Email",
+  linkedin: "LinkedIn",
+  showContacts: locale === "es" ? "Mostrar contacto" : "Show Contacts",
+  hideContacts: locale === "es" ? "Ocultar contacto" : "Hide Contacts",
+};
+---
+
+<aside
+  class="identity-sidebar panel sticky-column relative flex flex-col p-7 text-center lg:sticky lg:top-6 lg:items-center"
+  aria-label={locale === "es"
+    ? "Identidad profesional"
+    : "Professional identity"}
+  data-identity-sidebar
+>
+  <button
+    class="contacts-toggle absolute right-0 top-0 inline-flex items-center gap-2 rounded-bl-xl rounded-tr-[var(--radius-panel)] border-b border-l border-brand-soft/35 bg-surface-panel px-4 py-2 text-xs font-medium text-brand-strong shadow-[0_12px_28px_rgba(255,188,94,0.12)] transition-colors hover:text-brand-soft lg:hidden"
+    type="button"
+    aria-expanded="false"
+    aria-controls="identity-additional-info"
+    data-contacts-toggle
+    data-show-label={labels.showContacts}
+    data-hide-label={labels.hideContacts}
+  >
+    <span data-contacts-label>{labels.showContacts}</span>
+    <svg
+      class="contacts-toggle__icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m6 9 6 6 6-6"></path>
+    </svg>
+  </button>
+
+  <div
+    class="identity-base flex items-center gap-5 text-left lg:flex-col lg:text-center"
+  >
+    <!-- Avatar — rounded square on mobile, round on desktop -->
+    <div
+      class="avatar-wrap h-28 w-28 shrink-0 overflow-hidden rounded-[1.75rem] lg:h-40 lg:w-40 lg:rounded-full"
+    >
+      <img
+        src="/avatar/my-avatar.webp"
+        width="160"
+        height="160"
+        alt={locale === "es" ? `Avatar de ${name}` : `${name} avatar`}
+        class="h-full w-full object-cover object-top"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+
+    <div class="min-w-0">
+      <h2 class="text-[1.5rem] font-semibold leading-tight text-text-primary">
+        {name}
+      </h2>
+      <span
+        class="mt-3 inline-block rounded-lg border border-border-soft px-4 py-1.5 text-xs font-light text-text-secondary"
+      >
+        {headline}
+      </span>
+    </div>
+  </div>
+
+  <!-- Contact rows -->
+  {
+    (location || email || linkedin) && (
+      <div
+        id="identity-additional-info"
+        class="identity-additional mt-6 flex w-full flex-col gap-1 border-t border-border-soft pt-6"
+        data-contacts-panel
+      >
+        {location && (
+          <a
+            href="https://www.google.com/maps/place/Rengo,+O'Higgins/@-34.3978459,-70.8662737,5485m/data=!3m2!1e3!4b1!4m6!3m5!1s0x9664a6a965f4a0a7:0xd63f49b13ce13e5f!8m2!3d-34.4028433!4d-70.8608394!16s%2Fm%2F025t6cm?entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D"
+            class="contact-row flex items-center gap-3 rounded-xl py-2.5"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div class="icon-box">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                class="text-brand-soft"
+              >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </div>
+            <div class="text-left space-y-1">
+              <p class="text-[0.65rem] uppercase tracking-widest text-text-muted">
+                {labels.location}
+              </p>
+              <p class="text-sm text-text-secondary">{location}</p>
+            </div>
+          </a>
+        )}
+
+        {email && (
+          <a
+            href={`mailto:${email}`}
+            class="contact-row flex items-center gap-3 rounded-xl py-2.5 transition-colors hover:text-brand-strong"
+          >
+            <div class="icon-box">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                class="text-brand-soft"
+              >
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </div>
+            <div class="text-left space-y-1">
+              <p class="text-[0.65rem] uppercase tracking-widest text-text-muted">
+                {labels.email}
+              </p>
+              <p class="text-sm text-text-secondary">{email}</p>
+            </div>
+          </a>
+        )}
+      </div>
+    )
+  }
+
+  <!-- Social links -->
+  <div
+    class="identity-social mt-6 flex items-center justify-center gap-4 pb-2"
+    data-contacts-panel
+  >
+    {
+      linkedin && (
+        <a
+          href={linkedin}
+          target="_blank"
+          rel="noreferrer me"
+          class="social-btn flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:text-brand-soft"
+          aria-label="LinkedIn"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+            class="text-text-muted"
+          >
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+            <rect x="2" y="9" width="4" height="12" />
+            <circle cx="4" cy="4" r="2" />
+          </svg>
+        </a>
+      )
+    }
+    <a
+      href="https://github.com/isaiasuziel"
+      target="_blank"
+      rel="noreferrer"
+      class="social-btn flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:text-brand-soft"
+      aria-label="GitHub"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+        class="text-text-muted"
+      >
+        <path
+          d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+        ></path>
+      </svg>
+    </a>
+  </div>
+</aside>
+
+<script>
+  let identityController: AbortController | null = null;
+  let stickyRaf = 0;
+
+  document.addEventListener("astro:page-load", () => {
+    identityController?.abort();
+    identityController = new AbortController();
+
+    const sidebar = document.querySelector<HTMLElement>(
+      "[data-identity-sidebar]",
+    );
+    const toggle = document.querySelector<HTMLButtonElement>(
+      "[data-contacts-toggle]",
+    );
+    const label = document.querySelector<HTMLElement>("[data-contacts-label]");
+
+    if (!sidebar) return;
+
+    const updateStickyState = () => {
+      stickyRaf = 0;
+      sidebar.toggleAttribute(
+        "data-sticky-active",
+        window.scrollY > 24 && window.matchMedia("(min-width: 1024px)").matches,
+      );
+    };
+
+    const requestStickyUpdate = () => {
+      if (stickyRaf) return;
+      stickyRaf = window.requestAnimationFrame(updateStickyState);
+    };
+
+    updateStickyState();
+    window.addEventListener("scroll", requestStickyUpdate, {
+      passive: true,
+      signal: identityController.signal,
+    });
+    window.addEventListener("resize", requestStickyUpdate, {
+      signal: identityController.signal,
+    });
+
+    if (!toggle || !label) return;
+
+    toggle.addEventListener(
+      "click",
+      () => {
+        const isOpen = sidebar.toggleAttribute("data-contacts-open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+        label.textContent = isOpen
+          ? (toggle.dataset.hideLabel ?? "")
+          : (toggle.dataset.showLabel ?? "");
+      },
+      { signal: identityController.signal },
+    );
+  });
+</script>
+
+<style>
+  .identity-sidebar {
+    transition:
+      transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 260ms ease;
+  }
+
+  @media (width >= 64rem) {
+    .identity-sidebar[data-sticky-active] {
+      transform: translateY(0.35rem);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+    }
+  }
+
+  @media (width < 64rem) {
+    .identity-sidebar {
+      padding: 1.85rem 1.9rem;
+      overflow: hidden;
+    }
+
+    .identity-additional,
+    .identity-social {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      padding-top: 0;
+      margin-top: 0;
+      border-top-color: transparent;
+      transform: translateY(-0.5rem);
+      transition:
+        max-height 300ms cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 220ms ease,
+        transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+        margin-top 300ms ease,
+        padding-top 300ms ease,
+        border-color 300ms ease;
+    }
+
+    .identity-sidebar[data-contacts-open] .identity-additional {
+      max-height: 24rem;
+      opacity: 1;
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+      border-top-color: var(--color-border-soft);
+      transform: translateY(0);
+    }
+
+    .identity-sidebar[data-contacts-open] .identity-social {
+      max-height: 8rem;
+      opacity: 1;
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+      border-top-color: var(--color-border-soft);
+      transform: translateY(0);
+    }
+
+    .identity-sidebar[data-contacts-open] .contacts-toggle__icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  .contacts-toggle__icon {
+    transition: transform var(--motion-soft);
+  }
+
+  .avatar-wrap {
+    background: linear-gradient(137.84deg, #3f3f40 2.69%, #303030 93.75%);
+  }
+
+  /* Neomorphism — raised element on dark canvas background */
+  .contact-icon {
+    background-color: var(--color-surface-canvas);
+    box-shadow:
+      -4px -4px 8px rgba(255, 255, 255, 0.06),
+      5px 5px 10px rgba(0, 0, 0, 0.5);
+  }
+</style>

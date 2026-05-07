@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">Avatar mark for Isaías Cordero</title>
+  <desc id="desc">Circular monogram with initials IC.</desc>
+  <defs>
+    <linearGradient id="g" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="oklch(0.72 0.14 250)" />
+      <stop offset="100%" stop-color="oklch(0.68 0.13 285)" />
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="60" fill="oklch(0.2 0.02 260)" />
+  <circle cx="60" cy="60" r="47" fill="url(#g)" opacity="0.9" />
+  <text x="60" y="72" font-family="Inter, system-ui, sans-serif" font-size="36" text-anchor="middle" fill="oklch(0.98 0.01 260)">IC</text>
+</svg>

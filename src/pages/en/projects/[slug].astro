@@ -1,0 +1,247 @@
+---
+import IdentitySidebar from '../../../components/shell/IdentitySidebar.astro';
+import Nav from '../../../components/shell/Nav.astro';
+import StackIconList from '../../../components/ui/StackIconList.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { render } from 'astro:content';
+import { getContact, getProfile, getProjects } from '../../../lib/content/loaders';
+import type { ProjectEntry } from '../../../lib/content/types';
+
+export async function getStaticPaths() {
+  const projects = await getProjects('en');
+
+  return projects.map((project) => ({
+    params: { slug: project.id.split('/').filter(Boolean).at(-1) },
+    props: { project },
+  }));
+}
+
+const locale = 'en' as const;
+const { project } = Astro.props as { project: ProjectEntry };
+const [profile, contact] = await Promise.all([getProfile(locale), getContact(locale)]);
+const { Content } = await render(project);
+const currentPath = `${Astro.url.pathname}${Astro.url.search}`;
+---
+
+<BaseLayout
+  locale={locale}
+  currentPath={currentPath}
+  title={`${project.data.title} · Isaías Cordero`}
+  description={project.data.excerpt}
+  canonicalPath={currentPath}
+  pageHeading={project.data.title}
+>
+  <Fragment slot="sidebar">
+    <IdentitySidebar
+      locale={locale}
+      name={profile.data.name}
+      headline={profile.data.headline}
+      location={profile.data.location}
+      email={contact.data.email}
+      linkedin={contact.data.linkedin}
+    />
+  </Fragment>
+
+  <Fragment slot="panel-tabs">
+    <Nav locale={locale} currentPath={currentPath} />
+  </Fragment>
+
+  <article class="case-detail" data-case-detail-back="/en/projects">
+    <a href="/en/projects" class="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors hover:text-brand-soft">
+      <span aria-hidden="true">←</span>
+      Back to cases
+    </a>
+
+    <header class="mt-6">
+      <p class="text-sm font-medium text-brand-soft">Technical case</p>
+      <h2 class="mt-3 max-w-3xl text-3xl font-semibold leading-tight text-text-primary lg:text-4xl">
+        {project.data.title}
+      </h2>
+      <p class="mt-4 max-w-3xl text-base leading-relaxed text-text-secondary lg:text-lg">{project.data.excerpt}</p>
+    </header>
+
+    <div class="case-hero mt-8" aria-hidden="true">
+      <div class="case-hero__grid"></div>
+      <div class="case-hero__panel case-hero__panel--main"></div>
+      <div class="case-hero__panel case-hero__panel--side"></div>
+      <div class="case-hero__line case-hero__line--a"></div>
+      <div class="case-hero__line case-hero__line--b"></div>
+      <div class="case-hero__orb"></div>
+    </div>
+
+    <dl class="mt-8 grid gap-4 border-y border-border-soft py-6 sm:grid-cols-3">
+      <div>
+        <dt class="text-xs uppercase tracking-[0.16em] text-text-muted">Role</dt>
+        <dd class="mt-2 text-sm text-text-primary">Frontend development</dd>
+      </div>
+      <div>
+        <dt class="text-xs uppercase tracking-[0.16em] text-text-muted">Stack</dt>
+        <dd class="mt-2 text-sm text-text-primary"><StackIconList stack={project.data.stack} /></dd>
+      </div>
+      <div>
+        <dt class="text-xs uppercase tracking-[0.16em] text-text-muted">Type</dt>
+        <dd class="mt-2 text-sm text-text-primary">Technical case</dd>
+      </div>
+    </dl>
+
+    <div class="case-body mt-8 max-w-3xl text-text-secondary">
+      <Content />
+    </div>
+
+    {
+      project.data.href && (
+        <a class="mt-8 inline-flex items-center gap-2 rounded-pill bg-brand-strong px-5 py-2 text-sm font-semibold text-text-inverse transition-colors hover:bg-brand-soft" href={project.data.href} target="_blank" rel="noreferrer">
+          Visit project
+          <span aria-hidden="true">↗</span>
+        </a>
+      )
+    }
+  </article>
+</BaseLayout>
+
+<script>
+  let caseEscBackController: AbortController | null = null;
+
+  document.addEventListener('astro:page-load', () => {
+    const detail = document.querySelector<HTMLElement>('[data-case-detail-back]');
+    if (!detail) return;
+
+    caseEscBackController?.abort();
+    caseEscBackController = new AbortController();
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      if (event.defaultPrevented) return;
+
+      const target = event.target;
+      if (target instanceof HTMLElement && target.closest('input, textarea, select, button')) return;
+
+      event.preventDefault();
+
+      const fallback = detail.dataset.caseDetailBack ?? '/en/projects';
+      const hasSameOriginReferrer = document.referrer !== '' && new URL(document.referrer).origin === window.location.origin;
+
+      if (hasSameOriginReferrer && window.history.length > 1) {
+        window.history.back();
+        return;
+      }
+
+      window.location.href = fallback;
+    }, { signal: caseEscBackController.signal });
+  });
+</script>
+
+<style>
+  .case-hero {
+    position: relative;
+    min-height: clamp(16rem, 32vw, 24rem);
+    overflow: hidden;
+    border-radius: 1rem;
+    background:
+      radial-gradient(circle at 78% 18%, rgba(255, 188, 94, 0.44), transparent 28%),
+      linear-gradient(135deg, rgba(103, 133, 255, 0.34), rgba(255, 255, 255, 0.05));
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  }
+
+  .case-hero__grid {
+    position: absolute;
+    inset: -30%;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 1.6rem 1.6rem;
+    transform: rotate(-12deg) scale(1.1);
+  }
+
+  .case-hero__panel,
+  .case-hero__line,
+  .case-hero__orb {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .case-hero__panel {
+    border-radius: 1.1rem;
+    background: rgba(252, 252, 252, 0.84);
+    box-shadow: 0 22px 42px rgba(0, 0, 0, 0.22);
+  }
+
+  .case-hero__panel--main {
+    left: 16%;
+    top: 20%;
+    width: 52%;
+    height: 50%;
+    transform: rotate(-8deg);
+  }
+
+  .case-hero__panel--side {
+    right: 12%;
+    bottom: 17%;
+    width: 34%;
+    height: 34%;
+    transform: rotate(9deg);
+    opacity: 0.72;
+  }
+
+  .case-hero__line {
+    left: 23%;
+    height: 0.45rem;
+    border-radius: 999px;
+    background: rgba(28, 30, 43, 0.28);
+  }
+
+  .case-hero__line--a {
+    top: 36%;
+    width: 34%;
+    transform: rotate(-8deg);
+  }
+
+  .case-hero__line--b {
+    top: 48%;
+    width: 24%;
+    transform: rotate(-8deg);
+  }
+
+  .case-hero__orb {
+    right: 19%;
+    top: 25%;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 999px;
+    background: var(--color-brand-gradient);
+  }
+
+  .case-body :global(p) {
+    margin-top: 1rem;
+    line-height: 1.8;
+  }
+
+  .case-body :global(h2) {
+    margin-top: 2.25rem;
+    color: var(--color-text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .case-body :global(ul) {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .case-body :global(li) {
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .case-body :global(li::before) {
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 999px;
+    background: var(--color-brand-soft);
+    content: '';
+  }
+</style>

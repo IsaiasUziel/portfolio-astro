@@ -1,0 +1,54 @@
+---
+import type { ContactEntry } from "../../lib/content/types";
+import type { Locale } from "../../lib/i18n";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  contact: ContactEntry;
+  classes: string;
+}
+
+const { locale, title, contact, classes } = Astro.props;
+---
+
+<section
+  class:list={["card", classes]}
+  id="contact"
+  aria-labelledby="contact-title"
+>
+  <div class="mb-[2.3125rem]">
+    <h2 id="contact-title" class="text-2xl font-semibold text-text-primary">
+      {title}
+    </h2>
+    <div
+      class="mt-[1.0625rem] h-[0.3125rem] w-10 rounded-lg"
+      style="background: var(--color-brand-gradient)"
+    >
+    </div>
+  </div>
+  <p class="text-sm text-text-secondary lg:text-base">
+    {
+      locale === "es"
+        ? "Canales directos para colaborar. Sin formularios ni rastreo de comportamiento."
+        : "Direct channels to collaborate. No forms and no behavioral tracking."
+    }
+  </p>
+
+  <div class="mt-6 flex flex-wrap gap-3">
+    <a
+      class="rounded-pill bg-brand-strong px-5 py-2 text-sm font-semibold text-text-inverse hover:bg-brand-soft"
+      href={`mailto:${contact.data.email}`}
+    >
+      {locale === "es" ? "Enviar correo" : "Send email"}
+    </a>
+    <a
+      class="rounded-pill border border-border-strong px-5 py-2 text-sm font-semibold text-text-primary hover:border-brand-soft hover:text-brand-soft"
+      href={contact.data.linkedin}
+      target="_blank"
+      rel="noreferrer me"
+    >
+      LinkedIn
+    </a>
+  </div>
+</section>

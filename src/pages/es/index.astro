@@ -1,0 +1,8 @@
+---
+import HomePage from '../../components/pages/HomePage.astro';
+
+const locale = 'es' as const;
+const currentPath = `${Astro.url.pathname}${Astro.url.search}`;
+---
+
+<HomePage locale={locale} currentPath={currentPath} canonicalPath="/" />

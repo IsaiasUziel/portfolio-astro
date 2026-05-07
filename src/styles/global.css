@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans:
+    "Poppins", "Inter", "Geist", "IBM Plex Sans", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-serif:
+    "Inter", "Geist", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* Surface — v1 palette: document #161822, panels/cards #1c1e2b */
+  --color-surface-canvas: #161822;
+  --color-surface-elevated: #1c1e2b;
+  --color-surface-panel: #1c1e2b;
+  --color-surface-muted: #13151f;
+
+  --color-text-primary: #fcfcfc;
+  --color-text-secondary: #d6d6d6;
+  --color-text-muted: #a0a0a0;
+  --color-text-inverse: #121212;
+
+  /* Brand — golden accent from vcard4 gradient */
+  --color-brand-strong: #ffdb6e;
+  --color-brand-soft: #ffbc5e;
+  --color-brand-glow: oklch(0.93 0.08 90);
+  --color-brand-accent: #ffdb6e;
+  --color-brand-gradient: linear-gradient(
+    137.84deg,
+    #ffdb6e 26.31%,
+    #ffbc5e 93.75%
+  );
+  --color-brand-gradient-text: linear-gradient(90deg, #ffdb6e, #ffbc5e);
+
+  --color-border-soft: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.15);
+
+  --color-secondary: #292c3d;
+
+  --shadow-panel: none;
+  --shadow-soft: none;
+
+  --radius-card: 1rem;
+  --radius-panel: 1.25rem;
+  --radius-pill: 999px;
+
+  --spacing-shell: clamp(1rem, 0.4rem + 2vw, 2rem);
+  --spacing-content: clamp(1rem, 0.6rem + 1.5vw, 1.5rem);
+}
+
+:root {
+  --motion-soft: 200ms ease;
+  --motion-fast: 130ms ease;
+  --z-nav: 20;
+  --z-overlay: 40;
+}
+
+@custom-variant child (& > *);
+@custom-variant child-hover (& > *:hover);
+
+html {
+  scrollbar-gutter: stable;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-surface-canvas);
+  color: var(--color-text-primary);
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background-color: var(--color-brand-soft);
+  color: var(--color-text-inverse);
+}
+
+/* Page transition — fade + subtle upward slide for main panel */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-out-down {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+::view-transition-old(main-panel) {
+  animation: fade-out-down 180ms ease both;
+}
+
+::view-transition-new(main-panel) {
+  animation: fade-in-up 220ms ease both;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-soft);
+  outline-offset: 2px;
+  transition: outline-color var(--motion-fast);
+}
+
+a {
+  transition:
+    color var(--motion-fast),
+    background-color var(--motion-fast),
+    border-color var(--motion-fast);
+}
+
+.shell-grid {
+  display: grid;
+  gap: var(--spacing-shell);
+  padding-inline: var(--spacing-shell);
+  padding-block: 1rem;
+  max-width: 74rem;
+  margin-inline: auto;
+}
+
+@media (width >= 64rem) {
+  .shell-grid {
+    grid-template-columns: minmax(14rem, 17rem) minmax(0, 1fr);
+    /* align-items: start; */
+  }
+}
+
+.panel {
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-panel);
+}
+
+.card {
+  padding-block: var(--spacing-content);
+}
+
+@utility shadow-neomorphism {
+  box-shadow: 0px 16px 30px rgba(0, 0, 0, 0.25);
+}
+
+.icon-box {
+  @apply size-12 grid place-content-center rounded-xl transition-all shadow-neomorphism;
+  & svg {
+    @apply size-4;
+  }
+}
+
+.social-btn {
+  @apply shadow-neomorphism hover:bg-surface-canvas;
+}
+
+.contact-row {
+  &:hover {
+    .icon-box {
+      @apply bg-surface-canvas;
+    }
+  }
+}
+
+@utility brand-gradient {
+  background-image: var(--color-brand-gradient);
+}

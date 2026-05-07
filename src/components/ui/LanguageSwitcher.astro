@@ -1,0 +1,59 @@
+---
+import { getTranslatedPath, toDefaultLocaleRoot } from '../../lib/i18n';
+import type { Locale } from '../../lib/i18n';
+
+interface Props {
+  locale: Locale;
+  currentPath: string;
+}
+
+const { locale, currentPath } = Astro.props;
+const nextLocale: Locale = locale === 'es' ? 'en' : 'es';
+const translatedPath = getTranslatedPath(currentPath, locale, nextLocale);
+const nextPath = toDefaultLocaleRoot(translatedPath, nextLocale);
+const switchToLabel = locale === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish';
+---
+
+<div class="flex items-center gap-3 text-sm font-medium">
+  {
+    locale === 'en' ? (
+      <span class="text-brand-soft">EN</span>
+    ) : (
+      <a
+        href={nextPath}
+        data-language-switcher
+        aria-label={switchToLabel}
+        class="text-text-muted transition-colors hover:text-text-primary"
+      >
+        EN
+      </a>
+    )
+  }
+  {
+    locale === 'es' ? (
+      <span class="text-brand-soft">ES</span>
+    ) : (
+      <a
+        href={nextPath}
+        data-language-switcher
+        aria-label={switchToLabel}
+        class="text-text-muted transition-colors hover:text-text-primary"
+      >
+        ES
+      </a>
+    )
+  }
+</div>
+
+<script is:inline>
+  const switcher = document.querySelector('[data-language-switcher]');
+  if (switcher instanceof HTMLAnchorElement) {
+    const baseHref = switcher.getAttribute('href') ?? '/';
+    const currentHash = window.location.hash;
+    if (currentHash) {
+      const translated = new URL(baseHref, window.location.origin);
+      translated.hash = currentHash;
+      switcher.href = `${translated.pathname}${translated.search}${translated.hash}`;
+    }
+  }
+</script>

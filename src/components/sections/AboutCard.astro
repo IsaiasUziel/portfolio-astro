@@ -1,0 +1,29 @@
+---
+interface Props {
+  title: string;
+  paragraphs: string[];
+  classes: string;
+}
+
+const { title, paragraphs, classes } = Astro.props;
+---
+
+<section
+  class:list={["card", classes]}
+  id="about"
+  aria-labelledby="about-title"
+>
+  <div class="mb-9.25">
+    <h2 id="about-title" class="text-2xl font-semibold text-text-primary">
+      {title}
+    </h2>
+    <div
+      class="mt-[1.0625rem] h-[0.3125rem] w-10 rounded-lg"
+      style="background: var(--color-brand-gradient)"
+    >
+    </div>
+  </div>
+  <div class="space-y-3 text-sm text-text-secondary lg:text-base">
+    {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+  </div>
+</section>

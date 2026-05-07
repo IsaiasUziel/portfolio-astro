@@ -1,0 +1,80 @@
+---
+import type { Locale } from "../../lib/i18n";
+
+interface Props {
+  locale: Locale;
+  currentPath: string;
+}
+
+const { locale, currentPath } = Astro.props;
+
+const homeHref = locale === "es" ? "/" : `/${locale}`;
+
+const items = [
+  { href: homeHref, label: locale === "es" ? "Inicio" : "Home", hash: "" },
+  {
+    href: `/${locale}/resume`,
+    label: locale === "es" ? "Currículum" : "Resume",
+  },
+  { href: `/${locale}/projects`, label: locale === "es" ? "Casos" : "Cases" },
+  {
+    href: `${homeHref}#contact`,
+    label: locale === "es" ? "Contacto" : "Contact",
+    hash: "#contact",
+  },
+];
+
+const currentUrl = new URL(
+  currentPath.startsWith("/") ? currentPath : `/${currentPath}`,
+  "https://portfolio.local",
+);
+const normalizedCurrentPath =
+  currentUrl.pathname === "/es"
+    ? "/"
+    : currentUrl.pathname.replace(/\/$/, "") || homeHref;
+const currentHash = currentUrl.hash;
+const normalizedHomePath = homeHref === "/es" ? "/" : homeHref;
+---
+
+<nav aria-label={locale === "es" ? "Navegación principal" : "Main navigation"}>
+  <ul class="flex w-full items-center justify-center gap-1 sm:gap-2 lg:w-auto">
+    {
+      items.map((item) => {
+        const isCurrent =
+          item.hash === "#contact"
+            ? normalizedCurrentPath === normalizedHomePath &&
+              currentHash === "#contact"
+            : item.href === normalizedHomePath
+              ? normalizedCurrentPath === normalizedHomePath &&
+                currentHash !== "#contact"
+              : item.href === normalizedCurrentPath;
+
+        return (
+          <li>
+            <a
+              href={item.href}
+              aria-current={isCurrent ? "page" : undefined}
+              class:list={[
+                "nav-link rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors sm:px-3",
+                isCurrent
+                  ? "nav-link--active bg-surface-canvas"
+                  : "text-text-muted hover:text-text-primary",
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>
+
+<style>
+  .nav-link--active {
+    background: var(--color-brand-gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>

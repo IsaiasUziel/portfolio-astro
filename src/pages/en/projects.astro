@@ -1,0 +1,37 @@
+---
+import ProjectsCard from '../../components/sections/ProjectsCard.astro';
+import IdentitySidebar from '../../components/shell/IdentitySidebar.astro';
+import Nav from '../../components/shell/Nav.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getContact, getProfile, getProjects } from '../../lib/content/loaders';
+
+const locale = 'en' as const;
+const [profile, projects, contact] = await Promise.all([getProfile(locale), getProjects(locale), getContact(locale)]);
+const currentPath = `${Astro.url.pathname}${Astro.url.search}`;
+---
+
+<BaseLayout
+  locale={locale}
+  currentPath={currentPath}
+  title="Case Studies · Isaías Cordero"
+  description="Frontend case studies focused on architecture, performance, and delivery."
+  canonicalPath={currentPath}
+  pageHeading="Case Studies"
+>
+  <Fragment slot="sidebar">
+    <IdentitySidebar
+      locale={locale}
+      name={profile.data.name}
+      headline={profile.data.headline}
+      location={profile.data.location}
+      email={contact.data.email}
+      linkedin={contact.data.linkedin}
+    />
+  </Fragment>
+
+  <Fragment slot="panel-tabs">
+    <Nav locale={locale} currentPath={currentPath} />
+  </Fragment>
+
+  <ProjectsCard locale={locale} title="Case studies" projects={projects} />
+</BaseLayout>

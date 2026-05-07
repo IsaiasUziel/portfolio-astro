@@ -1,0 +1,558 @@
+---
+import type { TestimonialEntry } from "../../lib/content/types";
+import type { Locale } from "../../lib/i18n";
+import TestimonialPopover from "../ui/TestimonialPopover.astro";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  testimonials: TestimonialEntry[];
+}
+
+const { locale, title, testimonials } = Astro.props;
+
+const avatarGradients = [
+  "linear-gradient(135deg, #3a5f9f, #1e3a6e)",
+  "linear-gradient(135deg, #2d7a5f, #1a4a38)",
+  "linear-gradient(135deg, #7a3a5f, #4a1a38)",
+  "linear-gradient(135deg, #7a5f2d, #4a3a1a)",
+  "linear-gradient(135deg, #6d4cc2, #3d2478)",
+  "linear-gradient(135deg, #c65a3d, #76301f)",
+];
+
+const testimonialItems = testimonials.map((testimonial, index) => {
+  const linkedin = testimonial.data.linkedin;
+
+  if (!linkedin || linkedin === "undefined") {
+    throw new Error(`[testimonials] Missing LinkedIn URL for '${testimonial.data.name}'.`);
+  }
+
+  return {
+    testimonial,
+    linkedin,
+    gradient: avatarGradients[index % avatarGradients.length],
+    initials: getInitials(testimonial.data.name),
+    popoverId: getPopoverId(index),
+  };
+});
+
+function getInitials(name: string): string {
+  return name
+    .split(" ")
+    .slice(0, 2)
+    .map((n) => n[0])
+    .join("");
+}
+
+function getPopoverId(index: number): string {
+  return `testimonial-popover-${index + 1}`;
+      }
+---
+
+<section class="card" id="testimonials" aria-labelledby="testimonials-title">
+  <div class="mb-12 px-5 lg:px-7">
+    <h2
+      id="testimonials-title"
+      class="text-2xl font-semibold text-text-primary"
+    >
+      {title}
+    </h2>
+    <div class="mt-4.25 h-1.25 w-10 rounded-lg brand-gradient"></div>
+  </div>
+
+  <div class="overflow-hidden px-1">
+    <ul
+      class="testimonial-slider flex list-none snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-5 pb-16 pt-10"
+      data-testimonial-slider
+      aria-label={locale === "es"
+        ? "Recomendaciones profesionales"
+        : "Professional recommendations"}
+    >
+      {
+        testimonialItems.map(({ testimonial: t, gradient, initials, popoverId }) => {
+
+          return (
+            <li class="testimonial-slide group relative min-h-[10.5rem] w-[calc(100%-0.25rem)] shrink-0 snap-start rounded-card transition-transform hover:-translate-y-0.5 sm:w-[calc(50%-0.75rem)]">
+              <button
+                type="button"
+                class="testimonial-trigger absolute inset-0 z-20 rounded-card text-left outline-none focus-visible:ring-2 focus-visible:ring-brand-soft/70 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+                data-modal-target={popoverId}
+                aria-controls={popoverId}
+                aria-label={
+                  locale === "es"
+                    ? `Leer recomendación de ${t.data.name}`
+                    : `Read ${t.data.name}'s recommendation`
+                }
+              />
+
+              <div
+                class="absolute left-5 top-0 z-10 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-2xl text-sm font-bold text-white ring-2 ring-surface shadow-neomorphism"
+                style={`background: ${gradient}`}
+                aria-hidden="true"
+              >
+                {initials}
+              </div>
+
+              <figure class="h-full rounded-card border border-border-soft/50 bg-surface-elevated p-5 pt-12 transition-colors group-hover:border-brand-soft/30">
+                <figcaption class="flex items-start justify-between gap-4">
+                  <div>
+                    <p class="text-sm font-semibold text-text-primary">
+                      {t.data.name}
+                    </p>
+                    <p class="mt-1 line-clamp-1 text-xs text-text-muted">
+                      {t.data.role}
+                    </p>
+                  </div>
+                  <span
+                    class="shrink-0 text-3xl font-bold leading-none text-brand-soft/20"
+                    aria-hidden="true"
+                  >
+                    ❝
+                  </span>
+                </figcaption>
+                <blockquote class="mt-3 line-clamp-4 text-sm leading-relaxed text-text-secondary">
+                  &ldquo;{t.data.quote}&rdquo;
+                </blockquote>
+              </figure>
+            </li>
+          );
+        })
+      }
+    </ul>
+
+    <div
+      class="flex justify-center gap-2 -translate-y-full"
+      data-testimonial-pagination
+      data-dot-label={locale === "es" ? "Ir al grupo" : "Go to group"}
+      aria-label={locale === "es"
+        ? "Paginación de recomendaciones"
+        : "Recommendations pagination"}
+    >
+    </div>
+  </div>
+
+  <p class="mt-6 text-xs text-text-muted px-5 lg:px-7">
+    <a
+      href="https://www.linkedin.com/in/isaiasuziel/"
+      target="_blank"
+      rel="noreferrer me"
+      class="inline-flex items-center gap-1 transition-colors hover:text-brand-soft"
+    >
+      {
+        locale === "es"
+          ? "Ver todas las recomendaciones en LinkedIn"
+          : "See all recommendations on LinkedIn"
+      }
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="11"
+        height="11"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+        ></path>
+        <polyline points="15,3 21,3 21,9"></polyline>
+        <line x1="10" y1="14" x2="21" y2="3"></line>
+      </svg>
+    </a>
+  </p>
+</section>
+
+{
+  testimonialItems.map(({ testimonial: t, linkedin, gradient, initials, popoverId }) => (
+    <TestimonialPopover
+      id={popoverId}
+      locale={locale}
+      name={t.data.name}
+      role={t.data.role}
+      linkedin={linkedin}
+      date={t.data.date}
+      quote={t.data.quote}
+      relation={t.data.relation}
+      initials={initials}
+      gradient={gradient}
+    />
+  ))
+}
+
+<script>
+  // Module script — runs once per page lifecycle.
+  // astro:page-load fires on initial load + after every View Transition swap.
+  // click listeners attach to fresh DOM nodes each time → no accumulation.
+  // keydown lives on document (persists) → AbortController at module scope cleans it up.
+  let escAc: AbortController | null = null;
+  let resizeAc: AbortController | null = null;
+
+  document.addEventListener("astro:page-load", () => {
+    const slider = document.querySelector<HTMLElement>(
+      "[data-testimonial-slider]",
+    );
+    const pagination = document.querySelector<HTMLElement>(
+      "[data-testimonial-pagination]",
+    );
+    const slides = Array.from(
+      document.querySelectorAll<HTMLElement>(".testimonial-slide"),
+    );
+    let lastFocused: HTMLElement | null = null;
+    let isPointerDown = false;
+    let isDraggingSlider = false;
+    let suppressNextClick = false;
+    let dragStartX = 0;
+    let dragStartScrollLeft = 0;
+    let dots: HTMLButtonElement[] = [];
+    let snapPoints: number[] = [];
+
+    function setActiveDot(index: number) {
+      if (dots.length === 0) return;
+
+      const activeIndex = Math.max(0, Math.min(index, dots.length - 1));
+
+      dots.forEach((dot, i) => {
+        if (i === activeIndex) {
+          dot.setAttribute("aria-current", "true");
+          dot.classList.add("is-active");
+        } else {
+          dot.removeAttribute("aria-current");
+          dot.classList.remove("is-active");
+        }
+      });
+    }
+
+    function getSnapPoints() {
+      if (!slider || slides.length === 0) return [];
+
+      const maxScrollLeft = Math.max(
+        0,
+        slider.scrollWidth - slider.clientWidth,
+      );
+      const points = slides
+        .map((slide) =>
+          Math.min(slide.offsetLeft - slider.offsetLeft, maxScrollLeft),
+        )
+        .filter(
+          (point, index, all) =>
+            all.findIndex((value) => Math.abs(value - point) < 2) === index,
+        );
+
+      return points;
+    }
+
+    function getClosestSnapIndex() {
+      if (!slider || snapPoints.length === 0) return 0;
+
+      let closestIndex = 0;
+      let closestDistance = Number.POSITIVE_INFINITY;
+
+      snapPoints.forEach((point, index) => {
+        const distance = Math.abs(slider.scrollLeft - point);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      return closestIndex;
+    }
+
+    function snapToClosestSlide(behavior: ScrollBehavior = "smooth") {
+      if (!slider || snapPoints.length === 0) return;
+
+      const closestIndex = getClosestSnapIndex();
+
+      slider.scrollTo({
+        left: snapPoints[closestIndex] ?? 0,
+        behavior,
+      });
+      setActiveDot(closestIndex);
+    }
+
+    function renderDots() {
+      if (!pagination) return;
+
+      snapPoints = getSnapPoints();
+      pagination.innerHTML = "";
+
+      if (snapPoints.length <= 1) {
+        pagination.classList.add("hidden");
+        dots = [];
+        return;
+      }
+
+      pagination.classList.remove("hidden");
+      dots = snapPoints.map((_, index) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className =
+          "testimonial-dot h-2.5 w-2.5 rounded-full bg-text-muted/35 transition-all hover:bg-brand-soft/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-soft/70 focus-visible:ring-offset-2 focus-visible:ring-offset-surface";
+        dot.setAttribute(
+          "aria-label",
+          `${pagination.dataset.dotLabel ?? "Go to group"} ${index + 1}`,
+        );
+        dot.addEventListener("click", () => {
+          if (!slider) return;
+          slider.scrollTo({ left: snapPoints[index] ?? 0, behavior: "smooth" });
+          setActiveDot(index);
+        });
+        pagination.appendChild(dot);
+        return dot;
+      });
+
+      setActiveDot(getClosestSnapIndex());
+    }
+
+    if (slider && slides.length > 0) {
+      renderDots();
+
+      slider.addEventListener(
+        "scroll",
+        () => {
+          setActiveDot(getClosestSnapIndex());
+        },
+        { passive: true },
+      );
+
+      slider.addEventListener("scrollend", () => {
+        setActiveDot(getClosestSnapIndex());
+      });
+
+      resizeAc?.abort();
+      resizeAc = new AbortController();
+      window.addEventListener("resize", renderDots, {
+        signal: resizeAc.signal,
+      });
+
+      slider.addEventListener("pointerdown", (event) => {
+        isPointerDown = true;
+        isDraggingSlider = false;
+        dragStartX = event.clientX;
+        dragStartScrollLeft = slider.scrollLeft;
+      });
+
+      slider.addEventListener("pointermove", (event) => {
+        if (!isPointerDown) return;
+
+        const deltaX = event.clientX - dragStartX;
+        if (Math.abs(deltaX) > 6) {
+          if (!isDraggingSlider) {
+            isDraggingSlider = true;
+            slider.dataset.dragging = "true";
+            slider.setPointerCapture(event.pointerId);
+          }
+        }
+
+        if (!isDraggingSlider) return;
+
+        slider.scrollLeft = dragStartScrollLeft - deltaX;
+      });
+
+      const endPointerDrag = (event?: PointerEvent) => {
+        const shouldSnap = isDraggingSlider;
+
+        if (event && slider.hasPointerCapture(event.pointerId)) {
+          slider.releasePointerCapture(event.pointerId);
+        }
+
+        isPointerDown = false;
+        suppressNextClick = shouldSnap;
+        if (shouldSnap) {
+          snapToClosestSlide();
+        }
+        slider.dataset.dragging = "false";
+        isDraggingSlider = false;
+      };
+
+      slider.addEventListener("pointerup", endPointerDrag);
+      slider.addEventListener("pointercancel", endPointerDrag);
+      slider.addEventListener("pointerleave", endPointerDrag);
+      slider.addEventListener("lostpointercapture", () => {
+        isPointerDown = false;
+      });
+
+      document
+        .querySelectorAll<HTMLElement>(".testimonial-trigger")
+        .forEach((trigger) => {
+          trigger.addEventListener(
+            "click",
+            (event) => {
+              if (suppressNextClick) {
+                event.preventDefault();
+                event.stopPropagation();
+                suppressNextClick = false;
+              }
+            },
+            { capture: true },
+          );
+        });
+    }
+
+    function getModalFromTrigger(trigger: HTMLElement) {
+      const targetId = trigger.getAttribute("data-modal-target");
+      if (!targetId) return null;
+
+      return document.getElementById(targetId);
+    }
+
+    function getOpenModal() {
+      return document.querySelector<HTMLElement>(
+        "[data-testimonial-modal]:not(.hidden)",
+      );
+    }
+
+    function openModal(modal: HTMLElement) {
+      lastFocused =
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : null;
+
+      const card = modal.querySelector<HTMLElement>(
+        "[data-testimonial-modal-card]",
+      );
+      if (!card) return;
+
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      card.style.animation =
+        "modal-enter 280ms cubic-bezier(0.16, 1, 0.3, 1) both";
+      card.setAttribute("tabindex", "-1");
+      card.focus();
+    }
+
+    function hideModal(modal: HTMLElement) {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      lastFocused?.focus();
+    }
+
+    function closeModal(modal: HTMLElement) {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        hideModal(modal);
+        return;
+      }
+
+      const card = modal.querySelector<HTMLElement>(
+        "[data-testimonial-modal-card]",
+      );
+      if (!card) {
+        hideModal(modal);
+        return;
+      }
+
+      card.style.animation = "modal-exit 200ms ease-in both";
+      card.addEventListener("animationend", () => hideModal(modal), {
+        once: true,
+      });
+    }
+
+    // Triggers and modals are fresh DOM nodes on every swap → no accumulation.
+    document
+      .querySelectorAll<HTMLElement>(".testimonial-trigger")
+      .forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          const modal = getModalFromTrigger(trigger);
+          if (modal) openModal(modal);
+        });
+      });
+    document
+      .querySelectorAll<HTMLElement>("[data-testimonial-modal-close]")
+      .forEach((closeBtn) => {
+        closeBtn.addEventListener("click", () => {
+          const modal = closeBtn.closest<HTMLElement>(
+            "[data-testimonial-modal]",
+          );
+          if (modal) closeModal(modal);
+        });
+      });
+    document
+      .querySelectorAll<HTMLElement>("[data-testimonial-modal]")
+      .forEach((modal) => {
+        modal.addEventListener("click", (event) => {
+          if (event.target === modal) closeModal(modal);
+        });
+      });
+
+    // keydown lives on document → abort previous before re-registering.
+    escAc?.abort();
+    escAc = new AbortController();
+    document.addEventListener(
+      "keydown",
+      (e) => {
+        const openModalEl = getOpenModal();
+        if (e.key === "Escape" && openModalEl) closeModal(openModalEl);
+      },
+      { signal: escAc.signal },
+    );
+  });
+</script>
+
+<style>
+  @keyframes modal-enter {
+    from {
+      opacity: 0;
+      transform: scale(1.5);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes modal-exit {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.5);
+    }
+  }
+
+  .testimonial-slider {
+    cursor: grab;
+    scroll-padding-inline: 1.25rem;
+    scrollbar-width: none;
+  }
+
+  .testimonial-slider[data-dragging="true"] {
+    cursor: grabbing;
+    scroll-snap-type: none;
+    user-select: none;
+  }
+
+  .testimonial-slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testimonial-slide {
+    box-shadow:
+      8px 8px 20px rgba(0, 0, 0, 0.45),
+      -3px -3px 10px rgba(255, 255, 255, 0.04);
+  }
+
+  .testimonial-trigger {
+    user-select: none;
+  }
+
+  :global(.testimonial-dot[aria-current="true"]),
+  :global(.testimonial-dot.is-active) {
+    width: 1.75rem;
+    background: var(--color-brand-soft);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .testimonial-slider {
+      scroll-behavior: auto;
+    }
+
+    :global([data-testimonial-modal-card]) {
+      animation: none !important;
+    }
+  }
+</style>

@@ -1,0 +1,84 @@
+---
+import ContactCard from "../sections/ContactCard.astro";
+import AboutCard from "../sections/AboutCard.astro";
+import TestimonialsCard from "../sections/TestimonialsCard.astro";
+import IdentitySidebar from "../shell/IdentitySidebar.astro";
+import Nav from "../shell/Nav.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getHomeContent, getTestimonials } from "../../lib/content/loaders";
+import type { Locale } from "../../lib/i18n";
+
+interface Props {
+  locale: Locale;
+  currentPath: string;
+  canonicalPath: string;
+}
+
+const { locale, currentPath, canonicalPath } = Astro.props as Props;
+const [home, testimonials] = await Promise.all([
+  getHomeContent(locale),
+  getTestimonials(),
+]);
+
+const copy =
+  locale === "es"
+    ? {
+        pageHeading: "Inicio",
+        description:
+          "Portfolio bilingüe en Astro con experiencia, proyectos y contacto directo.",
+        aboutTitle: "Sobre mí",
+        contactTitle: "Contacto",
+        testimonialsTitle: "Recomendaciones",
+      }
+    : {
+        pageHeading: "Home",
+        description:
+          "Bilingual Astro portfolio with experience, projects, and direct contact channels.",
+        aboutTitle: "About",
+        contactTitle: "Contact",
+        testimonialsTitle: "Recommendations",
+      };
+---
+
+<BaseLayout
+  locale={locale}
+  currentPath={currentPath}
+  title="Isaías Cordero · Front-end Team Lead"
+  description={copy.description}
+  canonicalPath={canonicalPath}
+  pageHeading={copy.pageHeading}
+>
+  <Fragment slot="sidebar">
+    <IdentitySidebar
+      locale={locale}
+      name={home.profile.data.name}
+      headline={home.profile.data.headline}
+      location={home.profile.data.location}
+      email={home.contact.data.email}
+      linkedin={home.contact.data.linkedin}
+    />
+  </Fragment>
+
+  <Fragment slot="panel-tabs">
+    <Nav locale={locale} currentPath={currentPath} />
+  </Fragment>
+
+  <div class="divide-y divide-border-soft">
+    <AboutCard
+      classes="mt-5 px-5 lg:mt-7 lg:px-7"
+      title={copy.aboutTitle}
+      paragraphs={home.profile.data.summary}
+    />
+    <TestimonialsCard
+      locale={locale}
+      title={copy.testimonialsTitle}
+      testimonials={testimonials}
+    />
+    <ContactCard
+      classes="px-5 lg:px-7 mb-5 lg:mb-7"
+      locale={locale}
+      title={copy.contactTitle}
+      contact={home.contact}
+    />
+  </div>
+</BaseLayout>
