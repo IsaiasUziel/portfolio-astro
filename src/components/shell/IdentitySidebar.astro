@@ -12,10 +12,6 @@ interface Props {
 
 const { locale, name, headline, location, email, linkedin } = Astro.props;
 const avatarSource = '/avatar/my-avatar.webp';
-const avatarEncodedSource = encodeURIComponent(avatarSource);
-const avatarMobileSrc = `/_vercel/image?url=${avatarEncodedSource}&w=224&q=82`;
-const avatarDesktopSrc = `/_vercel/image?url=${avatarEncodedSource}&w=320&q=82`;
-const avatarSrcSet = `${avatarMobileSrc} 224w, ${avatarDesktopSrc} 320w`;
 
 const labels = {
   location: locale === "es" ? "Ubicación" : "Location",
@@ -69,8 +65,6 @@ const labels = {
     >
       <img
         src={avatarSource}
-        srcset={avatarSrcSet}
-        sizes="(min-width: 1024px) 160px, 112px"
         width="160"
         height="160"
         alt={locale === "es" ? `Avatar de ${name}` : `${name} avatar`}
