@@ -1,0 +1,9 @@
+node_modules/
+.atl/
+.astro/
+dist/
+.vercel/
+.DS_Store
+.idea/
+.vscode/
+coverage/

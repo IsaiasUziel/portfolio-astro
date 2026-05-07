@@ -1,0 +1,48 @@
+{
+  "name": "portfolio-astro",
+  "author": "Isaías Cordero",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.2.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "check:content": "astro check",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "quality:release": "node scripts/release-quality-gate.mjs",
+    "lint": "eslint . --ext .js,.mjs,.ts,.astro --ignore-pattern .astro",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@astrojs/mdx": "5.0.4",
+    "@astrojs/vercel": "10.0.5",
+    "@tailwindcss/postcss": "4.2.4",
+    "@vercel/analytics": "^1.5.0",
+    "astro": "6.1.9",
+    "tailwindcss": "4.2.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.8",
+    "@types/node": "^22.15.3",
+    "@playwright/test": "^1.54.2",
+    "@eslint/js": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "astro-eslint-parser": "^1.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.0.0",
+    "eslint-plugin-astro": "^1.0.0",
+    "prettier": "^3.0.0",
+    "prettier-plugin-astro": "^0.14.0",
+    "typescript": "^5.0.0",
+    "vitest": "^2.1.9"
+  },
+  "volta": {
+    "node": "25.6.0"
+  }
+}
