@@ -39,7 +39,7 @@ const linkedinHref = String(linkedin);
   data-testimonial-modal
 >
   <div
-    class="testimonial-modal-card relative w-full max-w-xl rounded-2xl border border-border-soft bg-surface-elevated p-8"
+    class="testimonial-modal-card relative flex max-h-[calc(100dvh-2rem)] w-full max-w-xl flex-col overflow-hidden rounded-2xl border border-border-soft bg-surface-elevated p-8"
     data-testimonial-modal-card
   >
     <button
@@ -67,7 +67,7 @@ const linkedinHref = String(linkedin);
 
     <div class="mb-6 flex items-start gap-5">
       <div
-        class="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl text-lg font-bold text-white"
+        class="flex size-14 tracking-wider lg:size-20 shrink-0 items-center justify-center rounded-2xl text-lg font-bold text-white"
         style={`background: ${gradient}`}
         aria-hidden="true"
       >
@@ -106,18 +106,20 @@ const linkedinHref = String(linkedin);
         <p class="mt-2 text-sm text-brand-soft">{date}</p>
       </div>
     </div>
-
-    <div class="relative">
+    <div class="relative min-h-0 flex-1 grid">
       <div
         class="absolute right-0 top-0 mb-3 -translate-y-2/5 text-[8rem] font-bold leading-none text-brand-soft/20 opacity-20 pointer-events-none"
         aria-hidden="true"
       >
         ❝
       </div>
-
-      <blockquote class="whitespace-pre-line text-sm leading-relaxed text-text-secondary">
-        {quote}
-      </blockquote>
+      <div class="relative overflow-y-auto pr-2 pt-3">
+        <blockquote
+          class="whitespace-pre-line text-sm leading-relaxed text-text-secondary"
+        >
+          {quote}
+        </blockquote>
+      </div>
     </div>
 
     <p class="mt-5 text-xs text-text-muted">{relation}</p>
