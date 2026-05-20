@@ -10,6 +10,11 @@ interface Props {
 }
 
 const { locale, title, experience, skills } = Astro.props;
+const fullResumeUrl = locale === 'es' ? 'https://resume.icordero.dev/resume' : 'https://resume.icordero.dev/en/resume';
+const ctaLabel = locale === 'es' ? 'Ver currículum completo' : 'View full resume';
+const ctaHelper = locale === 'es'
+  ? 'Versión detallada y exportable en PDF.'
+  : 'Detailed version with PDF export.';
 ---
 
 <article class="card" id="resume">
@@ -93,6 +98,28 @@ const { locale, title, experience, skills } = Astro.props;
       }
     </div>
   </section>
+
+  <div class="mt-8 border-t border-border-soft pt-6">
+    <a
+      href={fullResumeUrl}
+      target="_blank"
+      rel="noreferrer"
+      class="resume-cta group inline-flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-text-primary transition-transform duration-200 hover:-translate-y-0.5"
+    >
+      <span class="resume-cta__icon flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 3h7v7" />
+          <path d="M10 14 21 3" />
+          <path d="M21 14v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+        </svg>
+      </span>
+
+      <span>
+        <span class="block font-medium text-brand-soft">{ctaLabel}</span>
+        <span class="mt-0.5 block text-xs text-text-muted">{ctaHelper}</span>
+      </span>
+    </a>
+  </div>
 </article>
 
 <style>
@@ -100,5 +127,20 @@ const { locale, title, experience, skills } = Astro.props;
   .section-icon {
     border: 1px solid rgba(255, 188, 94, 0.35);
     background: transparent;
+  }
+
+  .resume-cta {
+    border: 1px solid rgba(255, 188, 94, 0.22);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .resume-cta:hover {
+    border-color: rgba(255, 188, 94, 0.38);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .resume-cta__icon {
+    border: 1px solid rgba(255, 188, 94, 0.28);
+    color: rgb(255 188 94);
   }
 </style>
