@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { locale, title, experience, skills } = Astro.props;
-const fullResumeUrl = locale === 'es' ? 'https://resume.icordero.dev/resume' : 'https://resume.icordero.dev/en/resume';
+const fullResumeUrl = locale === 'es' ? 'https://resume.icordero.dev/' : 'https://resume.icordero.dev/en/';
 const ctaLabel = locale === 'es' ? 'Ver currículum completo' : 'View full resume';
 const ctaHelper = locale === 'es'
   ? 'Versión detallada y exportable en PDF.'
