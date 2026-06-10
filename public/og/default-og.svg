@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">Isaías Cordero Portfolio Open Graph Image</title>
   <desc id="desc">Dark editorial card with portfolio title and role.</desc>
-  <rect width="1200" height="630" fill="oklch(0.16 0.02 260)" />
-  <rect x="64" y="64" width="1072" height="502" rx="32" fill="oklch(0.24 0.02 260)" stroke="oklch(0.35 0.03 260)" />
-  <text x="120" y="250" font-size="72" font-family="Inter, system-ui, sans-serif" fill="oklch(0.95 0.01 260)">Isaías Cordero</text>
-  <text x="120" y="320" font-size="40" font-family="Inter, system-ui, sans-serif" fill="oklch(0.78 0.01 260)">Front-end Team Lead · Astro Portfolio</text>
-  <text x="120" y="410" font-size="28" font-family="Inter, system-ui, sans-serif" fill="oklch(0.72 0.1 265)">icordero.dev</text>
+  <rect width="1200" height="630" fill="#070b14" />
+  <rect x="64" y="64" width="1072" height="502" rx="32" fill="#1b2029" stroke="#343b49" />
+  <text x="120" y="250" font-size="72" font-family="Inter, Arial, sans-serif" font-style="normal" font-weight="600" fill="#f0f3f8">Isaías Cordero</text>
+  <text x="120" y="320" font-size="40" font-family="Inter, Arial, sans-serif" font-style="normal" font-weight="400" fill="#c3cad6">Front-end Team Lead · Astro Portfolio</text>
+  <text x="120" y="410" font-size="28" font-family="Inter, Arial, sans-serif" font-style="normal" font-weight="400" fill="#7da8ff">icordero.dev</text>
 </svg>
