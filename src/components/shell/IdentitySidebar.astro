@@ -11,7 +11,7 @@ interface Props {
 }
 
 const { locale, name, headline, location, email, linkedin } = Astro.props;
-const avatarSource = '/avatar/my-avatar.webp';
+const avatarSource = "/avatar/my-avatar.webp";
 
 const labels = {
   location: locale === "es" ? "Ubicación" : "Location",
@@ -23,14 +23,14 @@ const labels = {
 ---
 
 <aside
-  class="identity-sidebar panel sticky-column relative flex flex-col p-7 text-center lg:sticky lg:top-6 lg:items-center"
+  class="identity-sidebar panel sticky-column relative flex flex-col py-7 px-4 text-center lg:sticky lg:top-6 lg:items-center"
   aria-label={locale === "es"
     ? "Identidad profesional"
     : "Professional identity"}
   data-identity-sidebar
 >
   <button
-    class="contacts-toggle absolute right-0 top-0 inline-flex items-center gap-2 rounded-bl-xl rounded-tr-[var(--radius-panel)] border-b border-l border-brand-soft/35 bg-surface-panel px-4 py-2 text-xs font-medium text-brand-strong shadow-[0_12px_28px_rgba(255,188,94,0.12)] transition-colors hover:text-brand-soft lg:hidden"
+    class="contacts-toggle absolute right-0 top-0 inline-flex items-center gap-2 rounded-bl-xl rounded-tr-panel border-b border-l border-brand-soft/35 bg-surface-panel px-4 py-2 text-xs font-medium text-brand-strong shadow-[0_12px_28px_rgba(255,188,94,0.12)] transition-colors hover:text-brand-soft lg:hidden"
     type="button"
     aria-expanded="false"
     aria-controls="identity-additional-info"
@@ -80,7 +80,7 @@ const labels = {
         {name}
       </h2>
       <span
-        class="mt-3 inline-block rounded-lg border border-border-soft px-4 py-1.5 text-xs font-light text-text-secondary"
+        class="mt-3 inline-block rounded-lg border border-border-soft px-4 py-1.5 text-xs font-light bg-secondary text-text-muted"
       >
         {headline}
       </span>
@@ -341,7 +341,9 @@ const labels = {
 
   .avatar-wrap {
     background: linear-gradient(137.84deg, #3f3f40 2.69%, #303030 93.75%);
-    box-shadow: 8px 8px 20px #ffdb6e2b, -3px -3px 10px #ffffff36;
+    box-shadow:
+      8px 8px 20px #ffdb6e2b,
+      -3px -3px 10px #ffffff36;
   }
 
   /* Neomorphism — raised element on dark canvas background */
