@@ -9,7 +9,7 @@ stack:
   - ReCaptcha
   - Vite
   - Tailwind CSS
-featured: true
+featured: false
 order: 3
 ---
 

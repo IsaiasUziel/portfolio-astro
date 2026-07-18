@@ -7,7 +7,7 @@ stack:
   - Astro
   - TypeScript
   - Tailwind CSS
-featured: true
+featured: false
 order: 7
 ---
 

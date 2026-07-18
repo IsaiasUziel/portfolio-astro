@@ -42,7 +42,7 @@
   --radius-panel: 1.25rem;
   --radius-pill: 999px;
 
-  --spacing-shell: clamp(1rem, 0.4rem + 2vw, 2rem);
+  --spacing-shell: clamp(1rem, 0.4rem + 2vw, 2.5rem);
   --spacing-content: clamp(1rem, 0.6rem + 1.5vw, 1.5rem);
 }
 
@@ -135,13 +135,13 @@ a {
   gap: var(--spacing-shell);
   padding-inline: var(--spacing-shell);
   padding-block: 1rem;
-  max-width: 74rem;
+  max-width: 78rem;
   margin-inline: auto;
 }
 
 @media (width >= 64rem) {
   .shell-grid {
-    grid-template-columns: minmax(14rem, 17rem) minmax(0, 1fr);
+    grid-template-columns: minmax(15rem, 18.5rem) minmax(0, 1fr);
     /* align-items: start; */
   }
 }

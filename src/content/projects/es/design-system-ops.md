@@ -7,7 +7,7 @@ stack:
   - React
   - Tailwind CSS
   - Storybook
-featured: true
+featured: false
 order: 6
 ---
 

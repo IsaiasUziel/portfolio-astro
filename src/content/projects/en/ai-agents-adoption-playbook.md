@@ -9,7 +9,7 @@ stack:
   - Spec-Driven Development
   - MCP
   - OpenCode
-featured: true
+featured: false
 order: 2
 ---
 

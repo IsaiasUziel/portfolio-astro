@@ -9,6 +9,7 @@ interface Props {
 const { locale, currentPath } = Astro.props;
 
 const homeHref = locale === "es" ? "/" : `/${locale}`;
+const casesHref = `/${locale}/projects`;
 
 const items = [
   { href: homeHref, label: locale === "es" ? "Inicio" : "Home", hash: "" },
@@ -16,7 +17,7 @@ const items = [
     href: `/${locale}/resume`,
     label: locale === "es" ? "Currículum" : "Resume",
   },
-  { href: `/${locale}/projects`, label: locale === "es" ? "Casos" : "Cases" },
+  { href: casesHref, label: locale === "es" ? "Casos" : "Cases" },
   {
     href: `${homeHref}#contact`,
     label: locale === "es" ? "Contacto" : "Contact",
@@ -34,6 +35,9 @@ const normalizedCurrentPath =
     : currentUrl.pathname.replace(/\/$/, "") || homeHref;
 const currentHash = currentUrl.hash;
 const normalizedHomePath = homeHref === "/es" ? "/" : homeHref;
+const isCasesRoute =
+  normalizedCurrentPath === casesHref ||
+  normalizedCurrentPath.startsWith(`${casesHref}/`);
 ---
 
 <nav aria-label={locale === "es" ? "Navegación principal" : "Main navigation"}>
@@ -47,7 +51,9 @@ const normalizedHomePath = homeHref === "/es" ? "/" : homeHref;
             : item.href === normalizedHomePath
               ? normalizedCurrentPath === normalizedHomePath &&
                 currentHash !== "#contact"
-              : item.href === normalizedCurrentPath;
+              : item.href === casesHref
+                ? isCasesRoute
+                : item.href === normalizedCurrentPath;
 
         return (
           <li>
