@@ -22,6 +22,6 @@ La intención es convertir criterios visuales y técnicos en una operación comp
 - Documentar patrones de uso para que el equipo no dependa de memoria o acuerdos informales.
 - Crear un puente entre diseño, frontend y delivery para sostener consistencia en el tiempo.
 
-## Resultado esperado
+## Resultado obtenido
 
-Menos retrabajo, mayor consistencia visual y una base técnica más mantenible para equipos que necesitan entregar interfaces con velocidad sin perder criterio.
+El equipo contó con componentes reutilizables, tokens y acuerdos documentados que redujeron el retrabajo, reforzaron la consistencia visual y dejaron una base técnica más mantenible para entregar interfaces.

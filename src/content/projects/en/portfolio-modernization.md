@@ -22,6 +22,6 @@ The goal was not only to refresh an interface, but to build a clear foundation f
 - Use Astro to deliver static pages with low runtime cost.
 - Organize content as editable pieces to support future narrative iterations.
 
-## Expected outcome
+## Outcome achieved
 
-A portfolio foundation that is easier to extend, review, and adapt, where each section can evolve without compromising performance, SEO, or technical clarity.
+The portfolio was structured as a bilingual, static, typed content system, with sections the team can extend, review, and adapt without compromising performance, SEO, or technical clarity.

@@ -27,6 +27,6 @@ La landing combinaba HTML estático, assets optimizados, JavaScript modular y co
 - Consumir el cómputo desde Oracle Object Storage para separar el dato crítico de la landing pública.
 - Integrar streaming, countdown, noticias, sponsors y actualización de cifra sin convertir la experiencia en una aplicación pesada.
 
-## Resultado esperado
+## Resultado obtenido
 
-Una landing estable, liviana y preparada para alta concurrencia, capaz de acompañar una transmisión nacional en vivo sin depender de una arquitectura dinámica innecesaria.
+Durante tres años, el equipo entregó una landing estable y liviana que acompañó la transmisión nacional en vivo, integró el cómputo público desde almacenamiento externo y evitó una arquitectura dinámica innecesaria.

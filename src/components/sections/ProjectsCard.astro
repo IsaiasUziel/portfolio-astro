@@ -29,54 +29,30 @@ const viewCaseLabel = locale === 'es' ? 'Ver caso' : 'View case';
     <div class="mt-4 h-[0.3125rem] w-10 rounded-lg" style="background: var(--color-brand-gradient)"></div>
   </div>
 
-  <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+  <div class="grid gap-x-7 gap-y-9 sm:grid-cols-2 xl:grid-cols-3">
     {
       projects.map((project, index) => {
         const href = getProjectHref(project);
-        const accent = (index % 6) + 1;
-        const primaryStack = project.data.stack[0];
-        const chips = project.data.stack.slice(0, 3);
 
         return (
-          <article class="case-tile group relative flex h-full flex-col rounded-card border border-border-soft bg-surface-muted p-5 transition-[transform,border-color,box-shadow] duration-200 ease-out hover:border-brand-soft/40 focus-within:border-brand-soft/60 focus-within:ring-2 focus-within:ring-brand-soft/40 motion-safe:hover:-translate-y-1">
-            <div class="flex items-center justify-between gap-3">
-              <span
-                class:list={["case-emblem", `case-emblem--${accent}`]}
-                aria-hidden="true"
-              >
-                {String(index + 1).padStart(2, '0')}
-              </span>
-              <span class="text-[0.7rem] font-medium uppercase tracking-[0.14em] text-text-muted">
-                {primaryStack}
-              </span>
+          <article class="case-tile group relative">
+            <div class:list={['case-cover', `case-cover--${(index % 6) + 1}`]} aria-hidden="true">
+              <div class="case-cover__grid"></div>
+              <div class="case-cover__panel case-cover__panel--main"></div>
+              <div class="case-cover__panel case-cover__panel--side"></div>
+              <div class="case-cover__line case-cover__line--a"></div>
+              <div class="case-cover__line case-cover__line--b"></div>
+              <div class="case-cover__orb"></div>
             </div>
 
-            <h3 class="mt-5 text-base font-semibold leading-snug text-text-primary transition-colors group-hover:text-brand-strong">
-              <a
-                class="after:absolute after:inset-0 after:rounded-card focus:outline-none focus-visible:outline-none"
-                href={href}
-                aria-label={`${viewCaseLabel}: ${project.data.title}`}
-              >
-                {project.data.title}
-              </a>
-            </h3>
+            <div class="mt-4">
+              <h3 class="text-base font-semibold leading-snug text-text-primary transition-colors group-hover:text-brand-strong">
+                <a href={href} class="case-tile__link">{project.data.title}</a>
+              </h3>
+              <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-text-secondary">{project.data.excerpt}</p>
+            </div>
 
-            <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-text-secondary">
-              {project.data.excerpt}
-            </p>
-
-            <ul class="mt-4 flex flex-wrap gap-2" aria-label={locale === 'es' ? 'Tecnologías' : 'Tech stack'}>
-              {chips.map((tech) => (
-                <li class="rounded-pill border border-border-soft px-2.5 py-1 text-[0.7rem] font-medium text-text-muted">
-                  {tech}
-                </li>
-              ))}
-            </ul>
-
-            <span
-              class="mt-auto inline-flex items-center gap-1 pt-5 text-sm font-medium text-brand-soft transition-colors group-hover:text-brand-strong"
-              aria-hidden="true"
-            >
+            <span class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand-soft transition-colors group-hover:text-brand-strong" aria-hidden="true">
               {viewCaseLabel}
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M5 12h14" />
@@ -91,40 +67,156 @@ const viewCaseLabel = locale === 'es' ? 'Ver caso' : 'View case';
 </section>
 
 <style>
-  .case-emblem {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 0.9rem;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: #fcfcfc;
-    box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-      0 10px 22px rgba(0, 0, 0, 0.28);
+  /* Stretched link: the title anchor is the tile's single focusable destination */
+  .case-tile__link::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    border-radius: var(--radius-card);
   }
 
-  .case-emblem--1 {
-    background: linear-gradient(137.84deg, #ffdb6e, #ffbc5e);
-    color: #121212;
+  .case-tile__link:focus-visible {
+    outline: none;
   }
-  .case-emblem--2 {
-    background: linear-gradient(137.84deg, #6785ff, #3a5f9f);
+
+  .case-tile__link:focus-visible::after {
+    outline: 2px solid var(--color-brand-soft);
+    outline-offset: 2px;
   }
-  .case-emblem--3 {
-    background: linear-gradient(137.84deg, #2d7a5f, #1f5a45);
+
+  .case-cover {
+    position: relative;
+    min-height: 11.5rem;
+    overflow: hidden;
+    border-radius: 1rem;
+    background:
+      radial-gradient(circle at 18% 20%, rgba(255, 219, 110, 0.34), transparent 28%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04));
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+    transition:
+      transform var(--motion-soft),
+      box-shadow var(--motion-soft);
   }
-  .case-emblem--4 {
-    background: linear-gradient(137.84deg, #b06a8f, #7a3a5f);
+
+  .case-tile:hover .case-cover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 188, 94, 0.28),
+      0 18px 36px rgba(0, 0, 0, 0.28);
   }
-  .case-emblem--5 {
-    background: linear-gradient(137.84deg, #c9a24a, #7a5f2d);
+
+  @media (prefers-reduced-motion: reduce) {
+    .case-cover {
+      transition: box-shadow var(--motion-soft);
+    }
+
+    .case-tile:hover .case-cover {
+      transform: none;
+    }
   }
-  .case-emblem--6 {
-    background: linear-gradient(137.84deg, #5f8fdf, #3a5f9f);
+
+  .case-cover::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background: linear-gradient(180deg, transparent 45%, rgba(22, 24, 34, 0.38));
+  }
+
+  .case-cover__grid {
+    position: absolute;
+    inset: -30%;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 1.2rem 1.2rem;
+    transform: rotate(-12deg) scale(1.1);
+  }
+
+  .case-cover__panel,
+  .case-cover__line,
+  .case-cover__orb {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .case-cover__panel {
+    border-radius: 0.85rem;
+    background: rgba(252, 252, 252, 0.82);
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18);
+  }
+
+  .case-cover__panel--main {
+    left: 16%;
+    top: 20%;
+    width: 52%;
+    height: 50%;
+    transform: rotate(-8deg);
+  }
+
+  .case-cover__panel--side {
+    right: 12%;
+    bottom: 17%;
+    width: 34%;
+    height: 34%;
+    transform: rotate(9deg);
+    opacity: 0.72;
+  }
+
+  .case-cover__line {
+    left: 23%;
+    height: 0.35rem;
+    border-radius: 999px;
+    background: rgba(28, 30, 43, 0.28);
+  }
+
+  .case-cover__line--a {
+    top: 36%;
+    width: 34%;
+    transform: rotate(-8deg);
+  }
+
+  .case-cover__line--b {
+    top: 48%;
+    width: 24%;
+    transform: rotate(-8deg);
+  }
+
+  .case-cover__orb {
+    right: 19%;
+    top: 25%;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 999px;
+    background: var(--color-brand-gradient);
+  }
+
+  .case-cover--2 {
+    background:
+      radial-gradient(circle at 78% 18%, rgba(255, 188, 94, 0.48), transparent 28%),
+      linear-gradient(135deg, rgba(103, 133, 255, 0.34), rgba(255, 255, 255, 0.05));
+  }
+
+  .case-cover--3 {
+    background:
+      radial-gradient(circle at 22% 70%, rgba(255, 219, 110, 0.42), transparent 26%),
+      linear-gradient(135deg, rgba(45, 122, 95, 0.46), rgba(255, 255, 255, 0.05));
+  }
+
+  .case-cover--4 {
+    background:
+      radial-gradient(circle at 72% 72%, rgba(255, 188, 94, 0.4), transparent 25%),
+      linear-gradient(135deg, rgba(122, 58, 95, 0.48), rgba(255, 255, 255, 0.05));
+  }
+
+  .case-cover--5 {
+    background:
+      radial-gradient(circle at 50% 18%, rgba(255, 219, 110, 0.38), transparent 25%),
+      linear-gradient(135deg, rgba(122, 95, 45, 0.46), rgba(255, 255, 255, 0.05));
+  }
+
+  .case-cover--6 {
+    background:
+      radial-gradient(circle at 85% 22%, rgba(255, 188, 94, 0.38), transparent 24%),
+      linear-gradient(135deg, rgba(58, 95, 159, 0.42), rgba(255, 255, 255, 0.05));
   }
 </style>

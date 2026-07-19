@@ -27,6 +27,6 @@ The landing page combined static HTML, optimized assets, modular JavaScript, and
 - Consume the public counter from Oracle Object Storage to separate critical data from the public landing page.
 - Integrate streaming, countdown, news, sponsors, and counter updates without turning the experience into a heavy application.
 
-## Expected outcome
+## Outcome achieved
 
-A stable, lightweight landing page prepared for high concurrency, able to support a national live broadcast without depending on unnecessary dynamic architecture.
+For three years, the team delivered a stable, lightweight landing page that supported the national live broadcast, integrated the public counter from external storage, and avoided unnecessary dynamic architecture.

@@ -27,6 +27,6 @@ The application lets users explore an interactive route map with filters and dir
 - Configure Vite with separated chunks for React and OpenLayers to reduce loading and maintenance friction.
 - Prepare the WordPress integration through dedicated templates and build-generated assets.
 
-## Expected outcome
+## Outcome achieved
 
-A more maintainable and modern map experience that can be integrated into WordPress without turning the whole site into a SPA or compromising the existing architecture.
+The solution delivered a modern, maintainable map experience integrated as an isolated view in WordPress without turning the whole site into a SPA or compromising the existing architecture.

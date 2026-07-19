@@ -25,6 +25,6 @@ La base inicial resolvía el desarrollo con un enfoque más tradicional, apoyado
 - Separar capacidades reutilizables en mu-plugins, incluyendo una base de design system, tokens y componentes compartidos.
 - Mantener WordPress como CMS, pero con una estructura más cercana a ingeniería de producto que a un sitio tradicional.
 
-## Resultado esperado
+## Resultado obtenido
 
-Una base técnica más rápida de iniciar, más consistente para equipos y más fácil de mantener entre proyectos, reduciendo fricción operativa sin abandonar el ecosistema WordPress.
+El equipo contó con una base WordPress reproducible que agilizó el inicio de proyectos, alineó los entornos locales y concentró capacidades compartidas en mu-plugins sin abandonar el CMS existente.

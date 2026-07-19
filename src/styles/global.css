@@ -132,7 +132,7 @@ a {
 
 .shell-grid {
   display: grid;
-  gap: var(--spacing-shell);
+  gap: 1rem;
   padding-inline: var(--spacing-shell);
   padding-block: 1rem;
   max-width: 78rem;

@@ -12,7 +12,7 @@ test.describe("portfolio bilingual routes and CTAs", () => {
       page.locator('nav[aria-label="Navegación principal"]'),
     ).toBeVisible();
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-      "Lidero la arquitectura y la entrega de productos web sin perder claridad técnica.",
+      "Trabajo con equipos para convertir complejidad en productos mantenibles.",
     );
     await expect(
       page.locator("#projects").getByRole("heading", { level: 3 }),
@@ -27,10 +27,10 @@ test.describe("portfolio bilingual routes and CTAs", () => {
 
   test("localized route parity for resume and projects", async ({ page }) => {
     await page.goto("/es/resume");
-    await expect(page.locator("#page-title")).toHaveText("Currículum");
+    await expect(page.locator("#page-title")).toHaveText("Trayectoria");
 
     await page.goto("/en/resume");
-    await expect(page.locator("#page-title")).toHaveText("Resume");
+    await expect(page.locator("#page-title")).toHaveText("Career");
 
     await page.goto("/es/projects");
     await expect(page.locator("#page-title")).toHaveText("Casos");
@@ -99,6 +99,38 @@ test.describe("portfolio bilingual routes and CTAs", () => {
     });
   }
 
+  test("each project tile exposes exactly one link named after its title", async ({
+    page,
+  }) => {
+    await page.goto("/");
+
+    const tiles = page.locator("#projects article");
+    await expect(tiles).toHaveCount(3);
+
+    for (const tile of await tiles.all()) {
+      const links = tile.getByRole("link");
+      await expect(links).toHaveCount(1);
+
+      const title = await tile
+        .getByRole("heading", { level: 3 })
+        .textContent();
+      await expect(links.first()).toHaveAccessibleName(title?.trim() ?? "");
+    }
+  });
+
+  test("project covers do not translate on hover with reduced motion", async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+
+    const firstTile = page.locator("#projects article").first();
+    const cover = firstTile.locator(".case-cover");
+
+    await firstTile.hover();
+    await expect(cover).toHaveCSS("transform", "none");
+  });
+
   test("mobile navigation remains reachable and keyboard navigable", async ({
     page,
   }) => {
@@ -110,7 +142,7 @@ test.describe("portfolio bilingual routes and CTAs", () => {
     await expect(nav.getByRole("link", { name: "Contacto" })).toBeVisible();
 
     const homeLink = nav.getByRole("link", { name: "Inicio" });
-    const resumeLink = nav.getByRole("link", { name: "Currículum" });
+    const resumeLink = nav.getByRole("link", { name: "Trayectoria" });
 
     await homeLink.focus();
     await expect(homeLink).toBeFocused();

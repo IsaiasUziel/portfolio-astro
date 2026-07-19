@@ -22,6 +22,6 @@ El objetivo no fue solo renovar una interfaz, sino construir una base clara para
 - Usar Astro para entregar páginas estáticas con bajo costo de ejecución.
 - Organizar el contenido como piezas editables para facilitar futuras iteraciones narrativas.
 
-## Resultado esperado
+## Resultado obtenido
 
-Una base de portfolio más fácil de extender, revisar y adaptar, donde cada sección puede evolucionar sin comprometer performance, SEO ni claridad técnica.
+El portfolio quedó estructurado como un sistema de contenido bilingüe, estático y tipado, con secciones que el equipo puede extender, revisar y adaptar sin comprometer performance, SEO ni claridad técnica.

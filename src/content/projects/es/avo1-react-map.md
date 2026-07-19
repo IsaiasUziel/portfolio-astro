@@ -27,6 +27,6 @@ La aplicación permite explorar un mapa interactivo de rutas, filtros y direccio
 - Configurar Vite con separación de chunks para React y OpenLayers, reduciendo fricción en carga y mantenimiento.
 - Preparar la integración en WordPress mediante templates específicos y assets generados por el build.
 
-## Resultado esperado
+## Resultado obtenido
 
-Una experiencia de mapa más mantenible y moderna, capaz de integrarse en WordPress sin convertir todo el sitio en una SPA ni comprometer la arquitectura existente.
+La solución dejó disponible una experiencia de mapa moderna y mantenible, integrada como una vista aislada en WordPress sin convertir todo el sitio en una SPA ni comprometer la arquitectura existente.

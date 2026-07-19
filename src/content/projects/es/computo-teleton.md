@@ -25,6 +25,6 @@ La solución evita complejidad innecesaria: no requiere una tabla de usuarios, p
 - Persistir la cifra en un JSON público para simplificar consumo externo.
 - Ejecutar limpieza de caché después de cada actualización para reducir desfase entre operación y visualización pública.
 
-## Resultado esperado
+## Resultado obtenido
 
-Una herramienta acotada, segura y fácil de operar para un momento de alta visibilidad, priorizando confiabilidad, simplicidad y control sobre una arquitectura sobredimensionada.
+La solución permitió al equipo actualizar la cifra pública mediante un flujo acotado y protegido, con persistencia en JSON y limpieza de caché, sin incorporar una arquitectura sobredimensionada.

@@ -25,6 +25,6 @@ The solution avoids unnecessary complexity: it does not require a users table, p
 - Persist the number in a public JSON file to simplify external consumption.
 - Trigger cache purging after each update to reduce delay between operation and public display.
 
-## Expected outcome
+## Outcome achieved
 
-A focused, secure, and easy-to-operate tool for a high-visibility moment, prioritizing reliability, simplicity, and control over an over-engineered architecture.
+The solution allowed the team to update the public number through a focused, protected workflow with JSON persistence and cache purging, without introducing an over-engineered architecture.

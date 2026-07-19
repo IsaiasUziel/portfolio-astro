@@ -97,8 +97,17 @@ const structuredData = {
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="/favicon/favicon-96x96.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/favicon/apple-touch-icon.png"
+    />
     <link rel="manifest" href="/favicon/site.webmanifest" />
     <meta name="theme-color" content="#0c0b0b" />
     <title>{title}</title>
@@ -141,7 +150,7 @@ const structuredData = {
       {locale === "es" ? "Saltar al contenido" : "Skip to content"}
     </a>
 
-    <div class="mx-auto max-w-272 px-4 pt-4 lg:px-6">
+    <div class="mx-auto max-w-304 px-4 pt-4 lg:px-6">
       <div class="flex justify-end">
         <LanguageSwitcher locale={locale} currentPath={currentPath} />
       </div>
@@ -158,7 +167,13 @@ const structuredData = {
         class="panel relative min-h-[68vh] overflow-hidden"
         aria-labelledby="page-title"
       >
-        {!isHomePage && <h1 id="page-title" class="sr-only">{pageHeading}</h1>}
+        {
+          !isHomePage && (
+            <h1 id="page-title" class="sr-only">
+              {pageHeading}
+            </h1>
+          )
+        }
         {
           hasTabs && (
             <div class="fixed lg:bg-secondary inset-x-0 bottom-0 z-[var(--z-nav)] flex h-16 items-center justify-center rounded-t-[1.25rem] border-t border-border-soft bg-[#292c3d] px-4 shadow-[0_-12px_34px_rgba(0,0,0,0.38)] backdrop-blur-md lg:absolute lg:inset-x-auto lg:bottom-auto lg:right-0 lg:top-0 lg:h-16 lg:rounded-bl-[20px] lg:rounded-tr-[var(--radius-panel)] lg:rounded-tl-none lg:border-b lg:border-l lg:border-r-0 lg:border-t-0 lg:px-9.5 lg:shadow-none lg:backdrop-blur-none">
@@ -166,7 +181,7 @@ const structuredData = {
             </div>
           )
         }
-        <div class={isHomePage ? undefined : 'p-5 lg:p-7'}>
+        <div class={isHomePage ? undefined : "p-5 lg:p-7"}>
           <slot />
         </div>
       </main>

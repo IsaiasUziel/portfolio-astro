@@ -25,6 +25,6 @@ La iniciativa consistió en transformar conceptos dispersos sobre AI development
 - Mantener una política vendor-agnostic para que el workflow funcione con distintos providers y herramientas.
 - Integrar conceptos como Engram, Context7, OpenCode y MCP desde una perspectiva práctica, no solo conceptual.
 
-## Resultado esperado
+## Resultado obtenido
 
-Una base documental que reduzca la curva de adopción, mejore la consistencia del trabajo con agentes AI y transforme el uso de AI en una capacidad operativa del equipo, no en una colección de prompts aislados.
+El equipo contó con una base documental navegable que organizó el onboarding, el flujo diario y el troubleshooting, y convirtió el uso de agentes AI en una capacidad operativa compartida en lugar de una colección de prompts aislados.

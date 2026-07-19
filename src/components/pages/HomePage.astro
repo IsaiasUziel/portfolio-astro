@@ -30,13 +30,12 @@ const copy =
           "Senior Software Engineer y líder técnico hands-on: arquitectura web, equipos y entrega de soluciones mantenibles en producción.",
         eyebrow: "Senior Software Engineer · Frontend y liderazgo técnico",
         heroTitle:
-          "Lidero la arquitectura y la entrega de productos web sin perder claridad técnica.",
+          "Trabajo con equipos para convertir complejidad en productos mantenibles.",
         heroSupport:
-          "Trabajo entre negocio, diseño y desarrollo para convertir requerimientos complejos en soluciones mantenibles y listas para producción. Combino liderazgo de equipos con ejecución hands-on en React, Next.js y plataformas WordPress/Bedrock.",
+          "Conecto negocio, diseño e ingeniería para tomar decisiones técnicas compartidas y llevar productos a producción. Mi experiencia principal está en el ecosistema web, pero me apoyo en fundamentos de arquitectura y programación para adaptarme al contexto y al stack que cada producto necesita.",
         proof:
           "Experiencia profesional desde 2017 · Liderazgo técnico hands-on · Entrega desde la propuesta hasta producción",
         casesCta: "Ver casos seleccionados",
-        resumeCta: "Ver currículum",
         contactCta: "Contactar por email",
         selectedCasesTitle: "Casos seleccionados",
         aboutTitle: "Cómo trabajo",
@@ -58,13 +57,12 @@ const copy =
           "Senior Software Engineer and hands-on technical leader focused on web architecture, team guidance, and maintainable production delivery.",
         eyebrow: "Senior Software Engineer · Frontend and technical leadership",
         heroTitle:
-          "I lead web architecture and product delivery while staying hands-on with the code.",
+          "I work with teams to turn complexity into maintainable products.",
         heroSupport:
-          "I work across business, design, and engineering to turn complex requirements into maintainable, production-ready solutions. I combine team leadership with hands-on delivery across React, Next.js, and WordPress/Bedrock platforms.",
+          "I connect business, design, and engineering to make shared technical decisions and bring products to production. My core experience is in the web ecosystem, but I rely on architecture and programming fundamentals to adapt to each product's context and stack.",
         proof:
           "Professional experience since 2017 · Hands-on technical leadership · Delivery from proposal to production",
         casesCta: "View selected cases",
-        resumeCta: "View resume",
         contactCta: "Contact by email",
         selectedCasesTitle: "Selected case studies",
         aboutTitle: "How I work",
@@ -109,79 +107,86 @@ const proofItems = copy.proof.split(" · ");
 
   <div class="divide-y divide-border-soft">
     <section
-      class="px-5 pb-10 pt-9 lg:px-7 lg:pb-12 lg:pt-24"
+      class="px-5 pb-10 pt-9 lg:px-7 lg:pb-12 lg:pt-[4.5rem] xl:pt-4"
       aria-labelledby="page-title"
     >
       <p
-        class="max-w-[30rem] text-xs font-semibold uppercase tracking-[0.18em] text-brand-soft"
+        class="max-w-[30rem] text-xs font-semibold uppercase tracking-[0.18em] text-brand-soft xl:flex xl:min-h-16 xl:max-w-[calc(100%-26.5rem)] xl:items-center"
       >
         {copy.eyebrow}
       </p>
       <h1
         id="page-title"
-        class="mt-5 max-w-[34rem] text-3xl font-semibold leading-[1.12] text-text-primary sm:text-4xl lg:text-[2.85rem]"
+        class="mt-5 max-w-[34rem] text-3xl font-semibold leading-tight text-text-primary lg:mt-4 lg:max-w-[42rem]"
       >
         {copy.heroTitle}
       </h1>
-      <p
-        class="mt-6 max-w-[38rem] text-base leading-relaxed text-text-secondary"
+
+      <div
+        class="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(15rem,17rem)] lg:gap-x-12"
       >
-        {copy.heroSupport}
-      </p>
-
-      <ul
-        class="mt-7 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-2"
-        aria-label={locale === "es" ? "Prueba profesional" : "Professional proof"}
-      >
-        {
-          proofItems.map((item) => (
-            <li class="flex items-center gap-2.5 text-sm font-medium text-text-muted">
-              <span
-                class="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-soft"
-                aria-hidden="true"
-              />
-              {item}
-            </li>
-          ))
-        }
-      </ul>
-
-      <div class="mt-8 flex flex-wrap items-center gap-3">
-        <a
-          class="rounded-pill bg-brand-strong px-5 py-2.5 text-sm font-semibold text-text-inverse transition-[background-color,transform] hover:bg-brand-soft motion-safe:active:scale-[0.98]"
-          href="#projects"
-        >
-          {copy.casesCta}
-        </a>
-        <a
-          class="rounded-pill border border-border-strong px-5 py-2.5 text-sm font-semibold text-text-primary transition-[color,border-color,transform] hover:border-brand-soft hover:text-brand-soft motion-safe:active:scale-[0.98]"
-          href={`mailto:${home.contact.data.email}`}
-        >
-          {copy.contactCta}
-        </a>
-        <a
-          class="px-2 py-2.5 text-sm font-medium text-brand-soft hover:text-brand-strong"
-          href={`/${locale}/resume`}
-        >
-          {copy.resumeCta}
-        </a>
-      </div>
-
-      <figure class="mt-9 max-w-[38rem] border-l-2 border-brand-soft/60 pl-4">
-        <blockquote class="text-sm leading-relaxed text-text-secondary">
-          &ldquo;{copy.testimonialExcerpt}&rdquo;
-        </blockquote>
-        <figcaption class="mt-2 text-xs text-text-muted">
-          {copy.testimonialAttribution}
-          <span aria-hidden="true"> · </span>
-          <a
-            class="text-brand-soft hover:text-brand-strong"
-            href={`${homeHref}#testimonials`}
+        <div>
+          <p
+            class="mt-6 max-w-[38rem] text-base leading-relaxed text-text-secondary"
           >
-            {copy.testimonialLink}
-          </a>
-        </figcaption>
-      </figure>
+            {copy.heroSupport}
+          </p>
+
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a
+              class="rounded-pill bg-brand-strong px-5 py-2.5 text-sm font-semibold text-text-inverse transition-[background-color,transform] hover:bg-brand-soft motion-safe:active:scale-[0.98]"
+              href="#projects"
+            >
+              {copy.casesCta}
+            </a>
+            <a
+              class="rounded-pill border border-border-strong px-5 py-2.5 text-sm font-semibold text-text-primary transition-[color,border-color,transform] hover:border-brand-soft hover:text-brand-soft motion-safe:active:scale-[0.98]"
+              href={`mailto:${home.contact.data.email}`}
+            >
+              {copy.contactCta}
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:mt-7">
+          <ul
+            class="mt-7 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-2 lg:mt-0 lg:flex-col lg:items-start lg:gap-3"
+            aria-label={locale === "es"
+              ? "Prueba profesional"
+              : "Professional proof"}
+          >
+            {
+              proofItems.map((item) => (
+                <li class="flex items-center gap-2.5 text-sm font-medium text-text-muted lg:items-baseline">
+                  <span
+                    class="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-soft"
+                    aria-hidden="true"
+                  />
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+
+          <figure
+            class="mt-9 max-w-[38rem] border-l-2 border-brand-soft/60 pl-4 lg:mt-8"
+          >
+            <blockquote class="text-sm leading-relaxed text-text-secondary">
+              &ldquo;{copy.testimonialExcerpt}&rdquo;
+            </blockquote>
+            <figcaption class="mt-2 text-xs text-text-muted">
+              {copy.testimonialAttribution}
+              <span aria-hidden="true"> · </span>
+              <a
+                class="text-brand-soft hover:text-brand-strong"
+                href={`${homeHref}#testimonials`}
+              >
+                {copy.testimonialLink}
+              </a>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
     </section>
     <ProjectsCard
       classes="px-5 lg:px-7"
